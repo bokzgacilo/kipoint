@@ -1,0 +1,166 @@
+@import url(asset/bootstrap/css/bootstrap.min.css);
+@import url(asset/fontawesome-6.2.0/css/all.min.css);
+
+@font-face {
+  font-family: Inter-Bold;
+  src: url(asset/inter/Inter-Bold.ttf);
+}
+
+@font-face {
+  font-family: Inter-SemiBold;
+  src: url(asset/inter/Inter-SemiBold.ttf);
+}
+
+@font-face {
+  font-family: Inter-Regular;
+  src: url(asset/inter/Inter-Regular.ttf);
+}
+
+@font-face {
+  font-family: Inter-Medium;
+  src: url(asset/inter/Inter-Medium.ttf);
+}
+
+:root {
+  --backdrop: #000000d6;
+  --blue-500: #0A2647;
+  --blue-400: #144272;
+  --blue-300: #205295;
+  --blue-200: #2C74B3;
+}
+
+*, p, h6, h5, h4, h3, h2, h1 {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Inter-Regular;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #fff;
+}
+
+/* Custom Modal */
+
+.bok-modal, .bok-modal-addItem, .bok-modal-makeReservation {
+  background-color: var(--backdrop);
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 1;
+  top: 0;
+  position: fixed; 
+}
+
+.bok-modal-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-modal {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.bok {
+  margin-top: 5rem;
+  background-color: #fff;
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem;
+  height: auto;
+}
+
+.make-reservation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  padding: 0 10px;
+  border: none;
+  background-color: green;
+  color: #fff;
+}
+
+.bok > h4, .bok-modal-header > h4 {
+  font-family: Inter-Bold;
+}
+
+/* STEPPER */
+
+.tab p {
+  font-size: 20px;
+  margin: 0 0 10px 0;
+}
+
+input{
+  margin: 10px 0;
+  padding: 10px;
+  box-sizing: border-box;
+  width: 100%;
+  font-size: 17px;
+  border: 1px solid #aaaaaa;
+}
+
+.index-btn-wrapper{
+  display: flex;
+}
+
+.index-btn{
+  margin: 20px 15px 0 0;
+  background: #04AA6D;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 17px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.index-btn:hover{
+  opacity: 0.8;
+}
+
+.step{
+  background-color: #fff;
+  opacity: 0.25;
+  padding: 8px 15px;
+  font-family: Inter-SemiBold;
+  color: #3c3c3c;
+  font-size: 14px;
+  border-radius: 50px;
+}
+
+.step:first-of-type {
+  background-color: #fff;
+  border: 1px rgb(202, 202, 202) solid;
+  color: rgb(157, 157, 157);
+  opacity: 1;
+}
+
+.step-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 2rem;
+}
+
+.bok-modal-makeReservation {
+  display: flex !important;
+}
