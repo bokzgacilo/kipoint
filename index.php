@@ -4,7 +4,9 @@
   if(!isset($_SESSION['name'])){
     header('location: ./login.php');
   }else {
-    $name = $_SESSION['name'];
+    include('connection.php');
+
+    $name = $_SESSION['name'];    
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +21,6 @@
   <!-- STYLES -->
   <link rel="stylesheet" href="index.css">
   <link rel="stylesheet" href="css/header.css">
-  <link rel="stylesheet" href="css/dashboard.css">
   <!-- SCRIPTS -->
   <script src="jquery.js"></script>
   <script src="index.js"></script>
@@ -48,9 +49,6 @@
       z-index: 2;
       position: fixed; 
     }
-
-    
-
   </style>
 
   <div class="bok-modal-makeReservation">
@@ -61,7 +59,7 @@
         </h4>
         <i class="close-modal fa-solid fa-x"></i>
       </div>
-      <form id="reservationForm" class="mt-4">
+      <form id="reservationForm"  enctype="multipart/form-data" method='post' action="api/makeAppoinment.php" class="mt-4">
         <div class="step-container mb-4">
           <div class="step" id="step-1">
             Reservation Details
@@ -72,45 +70,65 @@
             <i class="fa-solid fa-check"></i>
           </div>
           <div class="step" id="step-3">
-            Review and Finalization
+            Venue
             <i class="fa-solid fa-check"></i>
           </div>
         </div>
 
       <div class="tab mt-4" id = "tab-1">
         <div class="form-floating mt-4 mb-3">
-          <input id="client_name" type="text" name="client_name" class="form-control form-control-sm" placeholder="Starting Date">
+          <input required id="client_name" type="text" name="client_name" class="form-control form-control-sm" placeholder="Starting Date">
           <label for="floatingInput">Client Name</label>
         </div>
         <div class="form-floating mt-4 mb-3">
-          <input id="starting_date" type="date" name="start_date" class="form-control form-control-sm" placeholder="Starting Date">
+          <input required id="starting_date" type="date" name="start_date" class="form-control form-control-sm" placeholder="Starting Date">
           <label for="floatingInput">Starting Date</label>
         </div>
         <div class="form-floating mt-4 mb-3">
-          <input id="ending_date" type="date" name="end_date" class="form-control" placeholder="Ending Date">
+          <input required id="ending_date" type="date" name="end_date" class="form-control" placeholder="Ending Date">
           <label for="floatingInput">Ending Date</label>
         </div>
         <div class="mb-3">
           <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-          <textarea class="form-control" id="reservation_descriptions" rows="3"></textarea>
+          <textarea required name='description' class="form-control" id="reservation_descriptions" rows="3"></textarea>
         </div>
-        <button class="btn btn-primary w-100" onclick="run(1, 2);">Next</button>
+        <label class="btn btn-primary w-100" onclick="run(1, 2);">Next</label>
       </div>
 
       <div class="tab" id = "tab-2">
-        <p>Contact Info:</p>
-        <input type = "text" placeholder="Email" name="email">
-        <input type = "text" placeholder="Phone" name="phone">
+        <h5 class="modal-content-title">Add Equipment: </h5>
+        <div class="equipment-table">
+          <?php
+            $getAllEquipment = $conn -> query("SELECT * FROM inventory");
+
+            while($equipment = $getAllEquipment -> fetch_array()){
+              echo "
+                <div class='equipment' id='".$equipment['serial_code']."'>
+                  <p class='col'>".$equipment['name']."</p>
+                  <p class='col'>Available: ".$equipment['available']."</p>
+                  <div class='col order'>
+                    <p>Order: </p>
+                    <input name='item_quantity[".$equipment['serial_code']."][]' type='number' class='form form-control form-control-sm' min='0' value='0' max='".$equipment['available']."'>
+                  </div>
+                </div>
+              ";
+            }
+          ?>
+        </div>
+
         <div class="index-btn-wrapper">
-          <div class="index-btn" onclick="run(2, 1);">Previous</div>
-          <button class="btn btn-primary index-btn" onclick="run(2, 3);">Finalize</button>
+          <!-- <label class="btn btn-secondary" onclick="run(2, 1);">Previous</label> -->
+          <label class="btn btn-primary" onclick="run(2, 3);">Next</label>
         </div>
       </div>
-
       <div class="tab" id = "tab-3">
+        <select required name='venue' class="form form-control mb-3">
+          <option value="Covered Court">Covered Court</option>
+          <option value="Barangay Hall">Barangay Hall</option>
+        </select>
         <div class="index-btn-wrapper">
-          <div class="index-btn" onclick="run(3, 2);">Previous</div>
-          <button class="btn btn-primary index-btn" type="submit" name="submit">Reserve</button>
+          <!-- <label class="btn btn-secondary" onclick="run(2, 1);">Previous</label> -->
+          <button type="submit" class="btn btn-primary" onclick="run(2, 3);">Complete</button>
         </div>
       </div>
     </form>
@@ -233,12 +251,12 @@
         changeRoute(lastURL[1]);
       }
 
-      $('#reservationForm').submit(function(event){
-        event.preventDefault();
-        var formdata = $(this).formToJson();
+      // $('#reservationForm').submit(function(event){
+      //   event.preventDefault();
+      //   var formdata = $(this).formToJson();
 
-        console.table(formdata);
-      })
+      //   console.table(formdata);
+      // })
 
 
       $('#changePasswordForm').submit(function(event){
@@ -359,5 +377,6 @@
 </body>
 </html>
 <?php
+  $conn -> close();
   }
 ?>

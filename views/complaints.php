@@ -1,7 +1,5 @@
 <main>
-  <div>
-    <h5>Complaints <span><?php echo 2; ?></span></h5>
-  </div>
+  <h4 class="mt-2 mb-4">Complaints</h4>
   <div>
     <table id="complaints-table" class="align-middle table table-striped table-sm" style="width:100%">
       <thead>

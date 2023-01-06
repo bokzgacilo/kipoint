@@ -1,5 +1,3 @@
-
-
 $(document).ready(function(){
   $('.close-modal').click(function(){
     $(this).parent().parent().parent().css('display', 'none');

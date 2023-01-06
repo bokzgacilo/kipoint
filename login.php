@@ -71,14 +71,14 @@
           <label for="floatingInput">Username</label>
         </div>
         <div class="form-floating mb-3">
-          <input required type="password" name="password" class="form-control" placeholder="Password">
+          <input required type="password" name="password" class="form-control form-control-sm" placeholder="Password">
           <label for="floatingInput">Password</label>
         </div>
-        <button class="btn btn-primary w-100 btn-lg">Login</button>
+        <button class="btn btn-primary w-100">Login</button>
       </form>
-      <button class="btn btn-link btn-lg">Forgot Password?</button>
+      <button class="btn btn-link btn-sm">Forgot Password?</button>
       <hr>
-      <button class="btn btn-outline-dark btn-lg">Register</button>
+      <button class="btn btn-outline-dark">Register</button>
     </div>
   </div>
 
