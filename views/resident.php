@@ -1,37 +1,114 @@
 <main>
   <div>
-    <h4>Residents</h4>
+    <h4 class="mb-3">Residents</h4>
+    <h6 class="mb-3">All of the person listed below is a Barangay Pinagsama citizen that registers to the Kipoint Platform.</h6>
+    <div>
+      <input id='search-resident' type='search' placeholder="Start searching resident.." class="w-25 form-control-sm form form-control">
+    </div>
   </div>
-  <div>
-    <table id="example" class="table table-striped" style="width:100%">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Position</th>
-          <th>Office</th>
-          <th>Age</th>
-          <th>Start date</th>
-          <th>Salary</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Tiger Nixon</td>
-          <td>System Architect</td>
-          <td>Edinburgh</td>
-          <td>61</td>
-          <td>2011-04-25</td>
-          <td>$320,800</td>
-        </tr>
-        <tr>
-          <td>Garrett Winters</td>
-          <td>Accountant</td>
-          <td>Tokyo</td>
-          <td>63</td>
-          <td>2011-07-25</td>
-          <td>$170,750</td>
-        </tr>
-      </tbody>
-    </table>
+  <div id='resident-list'>
+    <div>
+      <div class="resident-list-header w-100">
+        <p class="col-2">Action</p>
+        <p class="col-1">Picture</p>
+        <p class="col-3">Fullname (Lastname, Firstname)</p>
+        <p class="col-2">Username</p>
+        <p class="col-2">Password</p>
+        <p class="col-2">Address</p>
+      </div>
+      <div class="resident-list">
+        <!-- QUERY -->
+      </div>
+    </div>
   </div>
 </main>
+
+<script>
+  function getAllResident(){
+    $.ajax({
+      type: 'get',
+      url: 'api/getAllResident.php',
+      success: function(response){
+        $('.resident-list').html(response)
+      }
+    })
+  }
+
+  $(document).ready(function(){
+    getAllResident();
+
+    $('#search-resident').keyup(function(){
+      var searchword = $(this).val();
+
+      if(searchword == ''){
+        getAllResident();
+      }else {
+        $.ajax({
+          type: 'get',
+          url: 'api/searchResident.php',
+          data: {
+            keyword : searchword
+          },
+          success: function(response){
+            $('.resident-list').html(response);
+          }
+        })
+      }
+    })
+  })
+</script>
+
+<style>
+  h4 {
+    font-family: Inter-Bold;
+  }
+
+  h6 {
+    font-family: Inter-Medium;
+  }
+
+  #resident-list {
+    padding: 0 10px 10px 10px;
+  }
+
+  .resident-list-header {
+    display: flex;
+    flex-direction: row;
+    font-family: Inter-SemiBold;
+    padding: 8px 0;
+    font-size: 14px;
+    align-items: center;
+  }
+
+  .resident-action {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .resident-action > a{
+    display: flex;
+    flex-direction: row;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    border-radius: 50px;
+    align-items: center;
+    font-size: 15px;
+    background-color: #e8e7e7;
+    cursor: pointer;
+  }
+
+  .resident {
+    display: flex;
+    flex-direction: row;
+    font-size: 12px;
+    align-items: center;
+  }
+
+  .res-avatar > img {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+  }
+</style>

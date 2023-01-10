@@ -164,7 +164,7 @@
       </button>
       <a href="#appointment" class='navigate' name='appointment'>
         <i class="fa-solid fa-clock"></i>
-        <p>Appointment</p>
+        <p>Reservation</p>
       </a>
       <a href="#inventory" class='navigate' name='inventory'>
         <i class="fa-solid fa-warehouse"></i>
