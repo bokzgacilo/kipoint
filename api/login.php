@@ -12,7 +12,6 @@
     while($row = $result -> fetch_array()){
       $_SESSION['name'] = $row['name'];
     }
-
     echo 'success';
   }else {
     echo 'failed';

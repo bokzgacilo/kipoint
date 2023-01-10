@@ -5,38 +5,35 @@
   $result = $conn -> query($sql);
 
   echo "
-    <thead>
-      <tr>
-        <th></th>
-        <th>Equipment Name</th>
-        <th>Equipment ID</th>
-        <th>Brand</th>
-        <th>Quantity</th>
-        <th>In Reservation</th>
-        <th>Available</th>
-      </tr>
-    </thead>
-    <tbody>
+    <div class='inventory-list-header'>
+      <p class='col-2'></p>
+      <p class='col'>Serial Code</p>
+      <p class='col-2'>Item Name</p>
+      <p class='col'>Brand</p>
+      <p class='col'>Quantity</p>
+      <p class='col'>In Reservation</p>
+      <p class='col'>Available</p>
+    </div>
+    <div class='inventory-list-content'>
   ";
 
   while($row = $result -> fetch_array()){
     echo "
-      <tr id='".$row['id']."'>
-        <td>
-          <a class='edit btn btn-warning btn-sm'>Edit</a>
+      <div class='inventory-item'>
+        <div class='inventory-item-action col-2'>
           <a class='delete btn btn-danger btn-sm'>Delete</a>
-        </td>
-        <td>".$row['name']."</td>
-        <td>".$row['serial_code']."</td>
-        <td>".$row['brand']."</td>
-        <td>".$row['quantity']."</td>
-        <td>".$row['in_reserve']."</td>
-        <td>".$row['available']."</td>
-      </tr>
+        </div>
+        <p class='col'>".$row['serial_code']."</p>
+        <p class='col-2'>".$row['name']."</p>
+        <p class='col'>".$row['brand']."</p>
+        <p class='col'>".$row['quantity']."</p>
+        <p class='col'>".$row['in_reserve']."</p>
+        <p class='col'>".$row['available']."</p>
+      </div>
     ";
   }
 
-  echo "</tbody>";
+  echo "</div>";
 
   $conn -> close();
 ?>

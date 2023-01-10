@@ -1,0 +1,178 @@
+<div class="bok-modal-readComplaint">
+  <div class="bok w-50">
+    <div class="bok-modal-header">
+      <h4 class="mt-2">
+        Case Number: <span class="case_number"></span>
+      </h4>
+      <i class="close-modal fa-solid fa-x"></i>
+    </div>
+    <div class="complaint-details">
+
+    </div>
+  </div>
+</div>
+
+
+<main>
+  <h4>Blotter</h4>
+  <div class="complaints">
+    <div class="complaint-list col-8">
+      <div class="complaint-list-header">
+        <p class="col-1"></p>
+        <p class="col">Case No.</p>
+        <p class="col">Incident Type</p>
+        <p class="col">Date Posted</p>
+        <p class="col">Status</p>
+        <p class="col">Read Full Details</p>
+      </div>
+      <div class="complaint-list-content">
+
+      </div>
+    </div>
+    <div class="col-4">
+      <form id="complaint-form">
+        <h5 class="mb-3">Blotter Details</h5>
+        <div class="mb-2">
+          <h6>Complainant</h6>
+          <input required type="text" class="form-control" id="complainantName" placeholder="Dela Cruz, Juan">
+        </div>
+        <div class="mb-2">
+          <h6>Defendant</h6>
+          <input required type="text" class="form-control" id="defendant" placeholder="Dela Cruz, Juan">
+        </div>
+        <div class="mb-2">
+          <h6>Date of the incident</h6>
+          <input required type="date" class="form-control" id="incidentDate">
+        </div>
+        <div class="mb-2">
+          <h6 class="mb-2">Incident Type</h6>
+          <select required id="incidentType" class="form-control">
+            <option>Grave Threat</option>
+            <option>Physical Altercation</option>
+            <option>Verbal Altercation</option>
+            <option>Gossip</option>
+            <option>Theft</option>
+          </select>
+        </div>
+        <div class="mb-4">
+          <h6 class="mb-2">Complaint</h6>
+          <textarea required class="form-control" id="complaintDescription" rows="3"></textarea>
+        </div>
+        <button class="btn btn-primary w-100" type="submit">Post Complain</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+<style>
+  .complaint-details {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding: 0.5rem 0;
+  }
+
+  .complaints {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .complaint-list {
+    padding: 1rem;
+  }
+
+  .complaint-list-header {
+    display: flex;
+    flex-direction: row;
+    font-family: Inter-SemiBold;
+    padding: 8px 0;
+    font-size: 14px;
+  }
+
+
+  .complaint-list, .complaint-list-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .complaint-list-header, .complaint{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+</style>
+
+<script>
+  $('.close-modal').click(function(){
+    $(this).parent().parent().parent().css('display', 'none');
+  })
+
+  function getAllComplaints(){
+    $.ajax({
+      type: 'get',
+      url: 'api/getAllComplaints.php',
+      success: (response) => {
+        $('.complaint-list-content').html(response);
+      }
+    })
+  }
+
+  function readcomplaint(control_number){
+    $('.bok-modal-readComplaint').css('display', 'flex');
+    $('.case_number').text(control_number)
+
+    $.ajax({
+      type: 'get',
+      url: 'api/getComplaintDetails.php',
+      data: {case_number : control_number},
+      success: (response) => {
+        $('.complaint-details').html(response)
+      }
+    })
+  }
+
+  $(document).ready(function(){
+    getAllComplaints();
+
+    $('#complaint-form').submit(function(e){
+      e.preventDefault();
+
+      var complainant = $('#complainantName').val();
+      var defendant = $('#defendant').val();
+      var incidentDate = $('#incidentDate').val();
+      var incidentType = $('#incidentType').val();
+      var complaintDescription = $('#complaintDescription').val();
+
+      $.ajax({
+        type: 'post',
+        url: 'api/postComplaint.php',
+        data: {
+          complainant: complainant,
+          defendant: defendant,
+          date_of_incident: incidentDate,
+          incident_type: incidentType,
+          complaint: complaintDescription
+        },
+        success: (response) => {
+          if(response == 1){
+            Swal.fire({
+              title: 'Complaint Posted',
+              text: 'Complaint was added posted to the Blotter.',
+              icon: 'success',
+              allowOutsideClick: false,
+              confirmButtonText: 'Close'
+            }).then((result) => {
+              if(result.isConfirmed){
+                $('#complaint-form')[0].reset();
+                getAllComplaints();
+              }
+            }) 
+          }else {
+            console.log(response)
+          }
+        }
+      })
+    })
+  })
+
+</script>

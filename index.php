@@ -98,7 +98,7 @@
       <div class="tab" id = "tab-2">
         <h5 class="modal-content-title">Add Equipment: </h5>
         <div class="equipment-table">
-          <?php
+          <!-- <?php
             $getAllEquipment = $conn -> query("SELECT * FROM inventory");
 
             while($equipment = $getAllEquipment -> fetch_array()){
@@ -113,7 +113,7 @@
                 </div>
               ";
             }
-          ?>
+          ?> -->
         </div>
 
         <div class="index-btn-wrapper">
@@ -162,7 +162,7 @@
         <i class="fa-solid fa-plus me-1"></i>
         <p>Make Reservation</p>
       </button>
-      <a href="#appointment" class='navigate' name='appointment'>
+      <a href="#reservation" class='navigate' name='reservation'>
         <i class="fa-solid fa-clock"></i>
         <p>Reservation</p>
       </a>
@@ -233,9 +233,9 @@
     function changeRoute(route){
 
       if(route == 'default'){
-        $('.root').hide().load('views/default.php').fadeIn('250');
+        $('.root').hide().load('views/default.html').fadeIn('250');
       }else {
-        $('.root').hide().load(`views/${route}.php`).fadeIn('250');
+        $('.root').hide().load(`views/${route}.html`).fadeIn('250');
       }
     }
 
@@ -249,16 +249,11 @@
         changeRoute('default');
       }else {
         changeRoute(lastURL[1]);
+        $("[name='"+lastURL[1]+"']").addClass('active');
       }
 
-      // $('#reservationForm').submit(function(event){
-      //   event.preventDefault();
-      //   var formdata = $(this).formToJson();
 
-      //   console.table(formdata);
-      // })
-
-
+      
       $('#changePasswordForm').submit(function(event){
         event.preventDefault();
         $('.backdrop').css('display', 'flex');  

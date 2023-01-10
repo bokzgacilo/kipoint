@@ -29,36 +29,57 @@
 </div>
 
 <main>
-  <h3 class="mb-3" style='font-family: Inter-Bold;'> Inventory</h3>
+  <h4 class="mb-2"> Inventory</h4>
+  <h6 class="mb-4">This is all the equipment that belongs to the Barangay Pinagsama.</h6>
   <div>
     <button type="button" class="btn btn-primary addItemModalButton">
       Add Item
     </button>
-
     <div id="InventoryList" class="inventory-tab" style="display: block;">
-      <table id='inventory' class="align-middle table table-striped table-sm">
-        <!-- API GET INVENTORY ITEM -->
-      </table>
+      <div id="inventory" class="">
+        
+      </div>
     </div>
   </div>
 </main>
 
 <style>
-  .active {
-    color: #fff;
+  #inventory {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
   }
 
-  tr {
+  .inventory-list-header {
+    display: flex;
+    flex-direction: row;
+    padding: 0 10px;
+    font-family: Inter-SemiBold;
+    padding: 8px 0;
     font-size: 14px;
+    background-color: var(--table-header);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    color: #fff;
     align-items: center;
   }
+  
+  .inventory-item {
+    display: flex;
+    flex-direction: row;
+    padding: 0.2rem 10px;
+    border-bottom: 1px rgb(226, 226, 226) solid;
+  }
 
-  th {
-    font-family: Inter-SemiBold;
+  .inventory-list-content {
+    display: flex;
+    flex-direction: column;
   }
 </style>
 
 <script>
+  
   $('.close-modal').click(function(){
     $(this).parent().parent().parent().css('display', 'none');
   })
@@ -74,6 +95,8 @@
   }
 
   $(document).ready(function(){
+    $('').addClass('selected');
+
 
     getInventory();
 
@@ -81,7 +104,6 @@
       event.preventDefault();
       $('.backdrop').css('display', 'flex');
       var formdata = $(this).formToJson();
-      // console.log(formdata)
       $.ajax({
         type: 'post',
         url: 'api/AddInventory.php',

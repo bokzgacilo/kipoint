@@ -27,6 +27,8 @@
   --blue-400: #144272;
   --blue-300: #205295;
   --blue-200: #2C74B3;
+  
+  --table-header: rgb(3, 57, 101);
 }
 
 *, p, h6, h5, h4, h3, h2, h1 {
@@ -48,9 +50,20 @@ a:hover {
   color: #fff;
 }
 
+h4 {
+  font-family: Inter-Bold;
+}
+
+h6 {
+  font-family: Inter-Medium;
+}
+
 /* Custom Modal */
 
-.bok-modal, .bok-modal-addItem, .bok-modal-makeReservation {
+.bok-modal, 
+.bok-modal-addItem, 
+.bok-modal-makeReservation,
+.bok-modal-readComplaint {
   background-color: var(--backdrop);
   width: 100vw;
   height: 100vh;
