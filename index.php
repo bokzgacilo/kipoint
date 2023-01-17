@@ -29,29 +29,264 @@
   <script src="asset/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-  <style>
-    main {
-      height: 93vh;
-      max-height: 93vh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      padding: 1rem;
+  <div class="backdrop">
+    <div class="spinner-border text-light" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+
+  <script>
+    var route;
+      
+    var hashed_url = window.location.hash;
+    var lastURL = hashed_url.split("#");
+
+    function openModal(name){
+      $('#' + name +"").css('display', 'flex');
     }
 
-    .backdrop {
-      background-color: var(--backdrop);
-      width: 100vw;
-      height: 100vh;
-      display: none;
+    function changeRoute(route){
+      if(route == 'default'){
+        $('.root').hide().load('views/default.html').fadeIn('250');
+      }else {
+        $('.root').hide().load(`views/${route}.html`).fadeIn('250');
+      }
+    }
+
+    function getAllAvailableEquipment() {
+      $.ajax({
+        type: 'get',
+        url: 'api/getAllAvailableEquipment.php',
+        success: (response) => {
+          $('.need-equipment').html(response)
+        }
+      })
+    }
+
+    function validateInput(name){
+      if(
+        $('#input-' + name + 'a').val() != '' &&
+        $('#input-' + name + 'b').val() != ''
+      ){
+        return true;
+      }
+    }
+
+    function renderStepBubbleCompleted(name){
+      $("#stepper-" + name).removeClass('step-active')
+      $("#stepper-" + name + " i").removeClass('fa-x fa-circle')
+      $("#stepper-" + name + " i").addClass('fa-check')
+      $("#stepper-" + name).css({
+        'background-color' : 'green',
+        'color' : 'white'
+      })
+    }
+
+    function renderStepBubblePrevious(name){
+      $("#stepper-" + name).removeClass('step-active')
+      $("#stepper-" + name + " i").removeClass('fa-circle')
+      $("#stepper-" + name + " i").addClass('fa-x')
+      $("#stepper-" + name).css({
+        'background-color' : '#fff',
+        'color' : '#000'
+      })
+    }
+
+    function renderStepBubbleNext(name){
+      $("#stepper-" + name).addClass('step-active')
+      $("#stepper-" + name + " i").removeClass('fa-x')
+      $("#stepper-" + name + " i").addClass('fa-circle')
+    }
+
+
+    function nextStep(name){
+      if(validateInput(name)){
+        renderStepBubbleCompleted(name)
+        $('.step-' + name).css('display', 'none')
+        var next = parseInt(name) + 1;
+        renderStepBubbleNext(next);
+        $('.step-' + next).css('display', 'flex')
+      }
+    }
+
+    function prevStep(name){
+      renderStepBubbleNext(name);
+      renderStepBubblePrevious(name);
+
+      $("#stepper-" + name).removeClass('step-active')
+
+      $('.step-' + name).css('display', 'none')
+      var prev = parseInt(name) - 1;
+
+      renderStepBubbleNext(prev);
+      $('.step-' + prev).css('display', 'flex')
+    }
+
+    $(document).ready(function(){
+      getAllAvailableEquipment();
+
+      
+      if(lastURL[1] == undefined){
+        changeRoute('default');
+      }else {
+        changeRoute(lastURL[1]);
+        $("[name='"+lastURL[1]+"']").addClass('active');
+      }
+
+      $('.modal-opener').click(function(){
+        openModal($(this).attr('name'));
+      })
+      
+      $('#finalizeReservation').click(function(event){
+            Swal.fire({
+              title: 'Confirm Reservation',
+              text: "This action is irreversible.",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Yes, confirm reservation'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                event.preventDefault();
+
+                var form = $('#reservationForm')[0];
+                var data = new FormData(form);
+
+                $.ajax({
+                  type: 'post',
+                  url: 'api/postReservation.php',
+                  enctype: 'multipart/form-data',
+                  data: data,
+                  processData: false,
+                  contentType: false,
+                  cache: false,
+                  timeout: 800000,
+                  beforeSend: () => {
+
+                  },
+                  success: (response) => {
+
+                    Swal.fire(
+                      'Success',
+                      'Your reservation is posted in Kipoint Reservations',
+                      'success'
+                    )
+
+                    $('#makeReservation').css('display', 'none');
+                    $('#reservationForm')[0].reset();
+                    $("a[name='"+lastURL[1]+"']").click();
+                  },
+                  complete: () => {
+                  }
+                })
+              }
+            })
+          })
+
+      $('#changePasswordForm').submit(function(event){
+        event.preventDefault();
+        $('.backdrop').css('display', 'flex');  
+        var formdata = $(this).formToJson();
+
+        if(formdata['password'] == null || formdata['password'].trim() === ''){
+          $('#changePasswordForm')[0].reset();  
+          $('.backdrop').css('display', 'none');
+          $('.bok-modal').css('display', 'none');
+        }else {
+          $.ajax({
+            type: 'post',
+            url: 'api/changePassword.php',
+            data: {
+              newPassword: formdata['password']
+            },
+            success: function(response){
+              if(response == 1){
+                setTimeout(function(){
+                  Swal.fire({
+                    title: 'Password changed.',
+                    text: 'You can use your new password now.',
+                    icon: 'success',
+                    allowOutsideClick: false,
+                    confirmButtonText: 'Ok'
+                  }).then((result) => {
+                    if(result.isConfirmed){
+                      $('#changePasswordForm')[0].reset();  
+                      $('.backdrop').css('display', 'none');
+                      $('.bok-modal').css('display', 'none');
+                    }
+                  }) 
+                }, 750)
+              }else {
+                Swal.fire({
+                    title: 'Password not changed.',
+                    text: 'Please try again after a few minutes.',
+                    icon: 'Error',
+                    allowOutsideClick: false,
+                    confirmButtonText: 'Close'
+                  }).then((result) => {
+                    if(result.isConfirmed){
+                      $('#changePasswordForm')[0].reset();  
+                      $('.backdrop').css('display', 'none');
+                      $('.bok-modal').css('display', 'none');
+                    }
+                  }) 
+              }
+            }
+          })
+        }
+      })
+
+      $('.navigate').click(function(){
+        newRoute = $(this).attr('name');
+        $('.backdrop').css('display', 'flex');
+
+        setTimeout(function(){
+          $('.backdrop').css('display', 'none');      
+          changeRoute(newRoute);
+        }, 1000)
+
+        $('.navigate').removeClass('active');
+        $(this).addClass('active'); 
+      })
+
+      $('.close-modal').click(function(){
+        $(this).parent().parent().parent().css('display', 'none');
+      })
+    })
+  </script>
+  <style>
+    #reservationForm > div {
       flex-direction: column;
+    }
+
+    .stepper {
+      display: flex;
+      flex-direction: row;
       justify-content: center;
       align-items: center;
-      z-index: 2;
-      position: fixed; 
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .stepper-bubble {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 12px;
+      border: 1px #fff solid;
+    }
+
+    .step-active {
+      border: 1px #d7d7d7 solid;
+      transition: 0.5s;
     }
   </style>
-
-  <div class="bok-modal-makeReservation">
+  <div id='makeReservation' class='bok-modal'>
     <div class="bok w-50">
       <div class="bok-modal-header">
         <h4 class="mt-2 mb-2">
@@ -59,83 +294,67 @@
         </h4>
         <i class="close-modal fa-solid fa-x"></i>
       </div>
-      <form id="reservationForm"  enctype="multipart/form-data" method='post' action="api/makeAppoinment.php" class="mt-4">
-        <div class="step-container mb-4">
-          <div class="step" id="step-1">
-            Reservation Details
-            <i class="fa-solid fa-check"></i>
-          </div>
-          <div class="step" id="step-2">
-            Equipments
-            <i class="fa-solid fa-check"></i>
-          </div>
-          <div class="step" id="step-3">
-            Venue
-            <i class="fa-solid fa-check"></i>
-          </div>
+      <div class="stepper">
+        <div id="stepper-1" class="stepper-bubble step-active">
+          <i class="fa-regular fa-circle"></i>
+          <p>Event Details</p>
         </div>
-
-      <div class="tab mt-4" id = "tab-1">
-        <div class="form-floating mt-4 mb-3">
-          <input required id="client_name" type="text" name="client_name" class="form-control form-control-sm" placeholder="Starting Date">
-          <label for="floatingInput">Client Name</label>
+        <div id="stepper-2" class="stepper-bubble">
+          <i class="fa-regular fa-x"></i>
+          <p>Event Date</p>
         </div>
-        <div class="form-floating mt-4 mb-3">
-          <input required id="starting_date" type="date" name="start_date" class="form-control form-control-sm" placeholder="Starting Date">
-          <label for="floatingInput">Starting Date</label>
-        </div>
-        <div class="form-floating mt-4 mb-3">
-          <input required id="ending_date" type="date" name="end_date" class="form-control" placeholder="Ending Date">
-          <label for="floatingInput">Ending Date</label>
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-          <textarea required name='description' class="form-control" id="reservation_descriptions" rows="3"></textarea>
-        </div>
-        <label class="btn btn-primary w-100" onclick="run(1, 2);">Next</label>
-      </div>
-
-      <div class="tab" id = "tab-2">
-        <h5 class="modal-content-title">Add Equipment: </h5>
-        <div class="equipment-table">
-          <!-- <?php
-            $getAllEquipment = $conn -> query("SELECT * FROM inventory");
-
-            while($equipment = $getAllEquipment -> fetch_array()){
-              echo "
-                <div class='equipment' id='".$equipment['serial_code']."'>
-                  <p class='col'>".$equipment['name']."</p>
-                  <p class='col'>Available: ".$equipment['available']."</p>
-                  <div class='col order'>
-                    <p>Order: </p>
-                    <input name='item_quantity[".$equipment['serial_code']."][]' type='number' class='form form-control form-control-sm' min='0' value='0' max='".$equipment['available']."'>
-                  </div>
-                </div>
-              ";
-            }
-          ?> -->
-        </div>
-
-        <div class="index-btn-wrapper">
-          <!-- <label class="btn btn-secondary" onclick="run(2, 1);">Previous</label> -->
-          <label class="btn btn-primary" onclick="run(2, 3);">Next</label>
+        <div id="stepper-3" class="stepper-bubble">
+          <i class="fa-regular fa-x"></i>
+          <p>Event Equipments</p>
         </div>
       </div>
-      <div class="tab" id = "tab-3">
-        <select required name='venue' class="form form-control mb-3">
-          <option value="Covered Court">Covered Court</option>
-          <option value="Barangay Hall">Barangay Hall</option>
-        </select>
-        <div class="index-btn-wrapper">
-          <!-- <label class="btn btn-secondary" onclick="run(2, 1);">Previous</label> -->
-          <button type="submit" class="btn btn-primary" onclick="run(2, 3);">Complete</button>
+      <form id="reservationForm" method="post" enctype="multipart/form-data">
+        <div class="step-1">
+          <p class="bok-form-text">Client Name</p>
+          <input id='input-1a' name='client_name' required class="input" type="text" placeholder="Dela Cruz, Juan">
+          <p class="bok-form-text">Venue</p>
+          <div class="select w-100 mb-3">
+            <select id='input-1' name='venue' required class="w-100">
+              <option>Basketball Court</option>
+              <option>Barangay Hall</option>
+              <option>Elementary School</option>
+              <option>Health Clinic</option>
+            </select>
+          </div>
+          <p class="bok-form-text">Event Description</p>
+          <textarea id='input-1b' name='event_description' required class="textarea mt-3" placeholder="Textarea"></textarea>
+          <div class="form-action">
+            <a class="mt-4 button is-primary" name='1' onclick="nextStep(this.name)">Next</a>
+          </div>
         </div>
-      </div>
-    </form>
+        <div style='display:none;' class="step-2">
+          <p class="bok-form-text">Starting Date</p>
+          <input id='input-2a' name='starting_date' required class="input" type="datetime-local">
+          <p class="bok-form-text">Ending Start</p>
+          <input id='input-2b' name='ending_date' required class="input" type="datetime-local">
+          <div class="form-action">
+            <a class="mt-4 button is-secondary" name='2' onclick="prevStep(this.name)">Back</a>
+            <a class="mt-4 button is-primary" name='2' onclick="nextStep(this.name)">Next</a>
+          </div>
+        </div>
+        <div style='display:none;' class="step-3">
+          <p class="bok-form-text">Need Equipment</p>
+          <div class="need-equipment">
+
+          </div>
+          <div class="form-action">
+            <a class="mt-4 button is-secondary" name='3' onclick="prevStep(this.name)">Back</a>
+            <a class="mt-4 button is-primary" id='finalizeReservation'>Reserve</a>
+          </div>
+        </div>
+      </form>
+      <script>
+        
+      </script>
     </div>
   </div>
 
-  <div class="bok-modal">
+  <div id='changePassword' name='changePassword' class="bok-modal">
     <div class="bok">
       <h4 class="mt-2">Change Password</h4>
       <form id="changePasswordForm" class="mb-4">
@@ -149,16 +368,10 @@
     </div>
   </div>
 
-  <div class="backdrop">
-    <div class="spinner-border text-light" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
-
   <header>
     <a href="#default" name='default' id="brand">KIPOINT</a>
     <div class="navigators"> 
-      <button class='make-reservation'>
+      <button name='makeReservation' class='modal-opener make-reservation'>
         <i class="fa-solid fa-plus me-1"></i>
         <p>Make Reservation</p>
       </button>
@@ -212,7 +425,7 @@
             <i class="fa-solid fa-gear me-2"></i>  
             Account Setting
           </a>
-          <a class="changePasswordButton">
+          <a name='changePassword' class="modal-opener">
             <i class="fa-solid fa-key me-2"></i>  
             Change Password
           </a>
@@ -228,150 +441,9 @@
   <div class="root">
 
   </div>
-
-  <script>
-    function changeRoute(route){
-
-      if(route == 'default'){
-        $('.root').hide().load('views/default.html').fadeIn('250');
-      }else {
-        $('.root').hide().load(`views/${route}.html`).fadeIn('250');
-      }
-    }
-
-    $(document).ready(function(){
-      var route;
-      
-      var hashed_url = window.location.hash;
-      var lastURL = hashed_url.split("#");
-      
-      if(lastURL[1] == undefined){
-        changeRoute('default');
-      }else {
-        changeRoute(lastURL[1]);
-        $("[name='"+lastURL[1]+"']").addClass('active');
-      }
-
-
-      
-      $('#changePasswordForm').submit(function(event){
-        event.preventDefault();
-        $('.backdrop').css('display', 'flex');  
-        var formdata = $(this).formToJson();
-
-        if(formdata['password'] == null || formdata['password'].trim() === ''){
-          $('#changePasswordForm')[0].reset();  
-          $('.backdrop').css('display', 'none');
-          $('.bok-modal').css('display', 'none');
-        }else {
-          $.ajax({
-            type: 'post',
-            url: 'api/changePassword.php',
-            data: {
-              newPassword: formdata['password']
-            },
-            success: function(response){
-              if(response == 1){
-                setTimeout(function(){
-                  Swal.fire({
-                    title: 'Password changed.',
-                    text: 'You can use your new password now.',
-                    icon: 'success',
-                    allowOutsideClick: false,
-                    confirmButtonText: 'Ok'
-                  }).then((result) => {
-                    if(result.isConfirmed){
-                      $('#changePasswordForm')[0].reset();  
-                      $('.backdrop').css('display', 'none');
-                      $('.bok-modal').css('display', 'none');
-                    }
-                  }) 
-                }, 750)
-              }else {
-                Swal.fire({
-                    title: 'Password not changed.',
-                    text: 'Please try again after a few minutes.',
-                    icon: 'Error',
-                    allowOutsideClick: false,
-                    confirmButtonText: 'Close'
-                  }).then((result) => {
-                    if(result.isConfirmed){
-                      $('#changePasswordForm')[0].reset();  
-                      $('.backdrop').css('display', 'none');
-                      $('.bok-modal').css('display', 'none');
-                    }
-                  }) 
-              }
-            }
-          })
-
-          
-        }
-      })
-
-      $('.make-reservation').click(function(){
-        $('.bok-modal-makeReservation').css('display', 'flex');
-      })
-
-      $('.changePasswordButton').click(function(){
-        $('.bok-modal').css('display', 'flex');
-      })
-
-      $('.navigate').click(function(){
-        newRoute = $(this).attr('name');
-        $('.backdrop').css('display', 'flex');
-
-        setTimeout(function(){
-          $('.backdrop').css('display', 'none');      
-          changeRoute(newRoute);
-        }, 1000)
-
-        $('.navigate').removeClass('active');
-        $(this).addClass('active'); 
-      })
-    })
-  </script>
-  <script>
-      // Default tab
-      $(".tab").css("display", "none");
-      $("#tab-1").css("display", "block");
-
-      function run(hideTab, showTab){
-        if(hideTab < showTab){ // If not press previous button
-          // Validation if press next button
-          var currentTab = 0;
-          x = $('#tab-' + hideTab);
-          y = $(x).find("input")
-          for (i = 0; i < y.length; i++){
-            if (y[i].value == ""){
-              $(y[i]).css("background", "#ffdddd");
-              return false;
-            }
-          }
-        }
-
-        // Progress bar
-        for (i = 1; i < showTab; i++){
-          $("#step-" + i).css("opacity", "1");
-          $("#step-" + i).css("color", "#fff");
-          $("#step-" + i).css("background-color", "green");
-          $("#step-" + (i + 1)).css({
-            'background-color': '#fff',
-            'border': '1px rgb(202, 202, 202) solid',
-            'color': 'rgb(157, 157, 157)',
-            'opacity': '1'
-          });
-        }
-
-        // Switch tab
-        $("#tab-" + hideTab).css("display", "none");
-        $("#tab-" + showTab).css("display", "block");
-        $("input").css("background", "#fff");
-      }
-    </script>
 </body>
 </html>
 <?php
-  $conn -> close();
+    $conn -> close();
   }
 ?>

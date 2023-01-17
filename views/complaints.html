@@ -1,4 +1,4 @@
-<div class="bok-modal-readComplaint">
+<div class="bok-modal" id="complaintDetails">
   <div class="bok w-50">
     <div class="bok-modal-header">
       <h4 class="mt-2">
@@ -118,15 +118,20 @@
   }
 
   function readcomplaint(control_number){
-    $('.bok-modal-readComplaint').css('display', 'flex');
-    $('.case_number').text(control_number)
-
     $.ajax({
       type: 'get',
       url: 'api/getComplaintDetails.php',
       data: {case_number : control_number},
+      beforeSend: () => {
+        $('.backdrop').css('display', 'flex');
+      },
       success: (response) => {
+        $('.case_number').text(control_number)
         $('.complaint-details').html(response)
+      },
+      complete: () => {
+        $('.backdrop').css('display', 'none');
+        $('#complaintDetails').css('display', 'flex');
       }
     })
   }

@@ -1,4 +1,4 @@
-<div class="bok-modal-addItem">
+<div class="bok-modal" id="addInventory">
   <div class="bok w-50">
     <div class="bok-modal-header">
       <h4 class="mt-2">
@@ -32,7 +32,7 @@
   <h4 class="mb-2"> Inventory</h4>
   <h6 class="mb-4">This is all the equipment that belongs to the Barangay Pinagsama.</h6>
   <div>
-    <button type="button" class="btn btn-primary addItemModalButton">
+    <button type="button" name='addInventory' class="btn btn-primary modal-opener">
       Add Item
     </button>
     <div id="InventoryList" class="inventory-tab" style="display: block;">
@@ -79,7 +79,6 @@
 </style>
 
 <script>
-  
   $('.close-modal').click(function(){
     $(this).parent().parent().parent().css('display', 'none');
   })
@@ -96,8 +95,6 @@
 
   $(document).ready(function(){
     $('').addClass('selected');
-
-
     getInventory();
 
     $('#addItemForm').submit(function(event){

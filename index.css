@@ -1,5 +1,6 @@
 @import url(asset/bootstrap/css/bootstrap.min.css);
 @import url(asset/fontawesome-6.2.0/css/all.min.css);
+@import url(asset/bulma/css/bulma.min.css);
 
 @font-face {
   font-family: Inter-Bold;
@@ -36,8 +37,13 @@
   padding: 0;
 }
 
+html {
+  overflow: hidden;
+}
+
 body {
   font-family: Inter-Regular;
+
 }
 
 a {
@@ -59,11 +65,27 @@ h6 {
 }
 
 /* Custom Modal */
+main {
+  height: 93vh;
+  max-height: 93vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1rem;
+}
 
-.bok-modal, 
-.bok-modal-addItem, 
-.bok-modal-makeReservation,
-.bok-modal-readComplaint {
+.backdrop {
+  background-color: var(--backdrop);
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  position: fixed; 
+}
+
+.bok-modal {
   background-color: var(--backdrop);
   width: 100vw;
   height: 100vh;
@@ -71,7 +93,7 @@ h6 {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  z-index: 1;
+  z-index: 2;
   top: 0;
   position: fixed; 
 }
@@ -80,6 +102,21 @@ h6 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+}
+
+.bok-form-text {
+  font-family: Inter-SemiBold !important;
+}
+
+.bok-modal-footer {
+  margin-top: 1rem;
+  padding: 0.5rem 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
   align-items: center;
 }
 
