@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="../asset/seal.png" type="image/x-icon">
+  <title>Kipoint - Client</title>
+  <script src="../jquery.js"></script>
+  <script src="dashboard.js"></script>
+  <link rel="stylesheet" href="../main.css">
+  <link rel="stylesheet" href="../plugins/clean-switch.css">
+
+  <script src="../plugins/sweetalert2@11.js"></script>
+  <link rel="stylesheet" href="dashboard-mobile.css">
+  <link rel="stylesheet" href="dashboard-web.css">
+  <link rel="stylesheet" href="../css/header.css">
+</head>
+<body>
+  <!-- Spinner -->
+  <div class="backdrop">
+    <div class="spinner-border text-light" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- My Reserved -->
+  <div id='myReservation' class='bok-modal'>
+    <div class="bok w-50">
+      <div class="bok-modal-header">
+        <h4 class="is-size-4 mt-2 mb-2">
+          My Reservation
+        </h4>
+        <i class="close-modal fa-solid fa-x"></i>
+      </div>
+      <div class="bok-message row">
+        <div class="bkmodal-r1 col-4">
+          <p>RequestID:</p>
+          <p>Client Name:</p>
+          <p>Starting Date:</p>
+          <p>Ending Date:</p>
+          <p>Venue:</p>
+          <p>Description:</p>
+          <p>Status</p>
+          <p>Equipment Requested:</p>
+        </div>
+        <div class="my-reservation-detail col">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <style>
+    .rese {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .rese-body {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+    }
+
+    .rese-footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+
+    .rese-body > div {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .equipment-header {
+      display: flex;
+      padding: 10px;
+      flex-direction: row;
+      background-color: rgb(2, 144, 52);
+      color: #fff;
+      font-size: 14px;
+      font-family: Inter-SemiBold;
+      justify-content: space-between;
+    }
+
+    .equipment-body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .equipment {
+      display: flex;
+      flex-direction: row;
+      font-size: 13px;
+      padding: 0 10px;
+      /* padding: 10px; */
+      margin-bottom: 0.2rem;
+    }
+  </style>
+  <!-- Reservation Modal -->
+  <div id='makeReservation' class='bok-modal'>
+    <div class="bok w-75">
+      <div class="bok-modal-header">
+        <h4 class="is-size-4 mt-2 mb-2">
+          Request Event Reservation
+        </h4>
+        <i class="close-modal fa-solid fa-x"></i>
+      </div>
+      <form id="reservationForm" class="rese">
+        <div class="rese-body">
+          <div class="col-4">
+            <h4>Event Description</h4>
+            <textarea id='event_description' required class="textarea" placeholder="e.g. Hello world"></textarea>
+            <h4>Starting Date</h4>
+            <input required type="datetime-local" id="starting_date" class="input">
+            <h4>Ending Date</h4>
+            <input required type="datetime-local" id="ending_date" class="input">
+            <h4>Venue</h4>
+            <div class="select w-100">
+              <select id="venue_dropdown" required class="w-100">
+                <option>Basketball Court</option>
+                <option>Barangay Hall</option>
+                <option>Simbahan</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <h4>Equipment to Request</h4>
+            <div class="equipment-header">
+              <p class="col-3">Serial Code</p>
+              <p class="col">Equipment Name</p>
+              <p class="col-2">Available</p>
+              <p class="col-2">Request</p>
+            </div>
+            <div class="equipment-body">
+
+            </div>
+          </div>
+        </div>
+        <div class="rese-footer">
+          <button class="button is-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="account-sidebar">
+    <div class="sidebar-content">
+      <div class="sidebar-header">
+        <p id='account-name' class="is-size-5">Ariel Jericko Gacilo</p>
+        <i class="close-sidebar fa-solid fa-xmark"></i>
+      </div>
+      <div class="sidebar-body">
+        Body
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="brand col-3">
+      <img class='col-3 me-2' src="../asset/seal.png" />
+      <p class="is-size-4" style="font-family: Inter-Bold;">Kipoint</p>
+    </div>
+    <div class="col navigate">
+
+    </div>
+    <div class="account col-4">
+      <p class="is-size-6">Ariel Jericko Gacilo</p>
+      <img src="../asset/default.png" />
+    </div>
+  </header>
+
+  <!-- Main -->
+  <div class="dashboard">
+    <aside class="menu col-3">
+      <h4 class="is-size-5 menu-label">
+        My Reservation
+      </h4>
+      <div class="my-reservation">
+        
+      </div>
+      <h4 class="is-size-5 menu-label">
+        Events
+      </h4>
+      <ul class="menu-list">
+        <li><a>Dashboard</a></li>
+        <li><a>Customers</a></li>
+      </ul>
+    </aside>
+
+    <article id='event-article' class="col">
+      
+    </article>
+    
+  </div>
+</body>
+</html>

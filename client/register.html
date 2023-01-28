@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Kipoint</title>
+  <link rel="stylesheet" href="../main.css">
+  <script src="../jquery.js"></script>
+</head>
+<body>
+  <style>
+    .user-login-form-container {
+      display: flex;
+      flex-direction: column;
+      width: 25%;
+      align-self: center;
+    }
+
+    img {
+      align-self: center;
+      margin: 2rem 0;
+      width: 50%;
+      height: auto;
+      object-fit: cover;
+    }
+    
+  </style>
+  <div class="container d-flex flex-column justify-content-center">
+    <div class="user-login-form-container">
+      <img src="../asset/seal.png">
+      <h4 class="is-size-4">Register</h4>
+      <form class="user-login-form">
+        <input id='fullname' name="fullname" class="input is-normal is-hovered" type="text" placeholder="Fullname (L, F, M.I)">
+        <input id='username' name="username" class="input is-normal is-hovered" type="text" placeholder="Username">
+        <input id='username' name="username" class="input is-normal is-hovered" type="password" placeholder="Password">
+        <button class="mt-4 button is-link w-100">Primary</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+      // alert()
+    })
+  </script>
+</body>
+</html>

@@ -9,12 +9,19 @@
   $result = $conn -> query($check);
 
   if(($result -> num_rows) > 0){
+    $fullname = '';
     while($row = $result -> fetch_array()){
-      $_SESSION['name'] = $row['name'];
+      $fullname = $row['name'];
     }
-    echo 'success';
+
+    $resp = array(
+      'status' => 1,
+      'fullname' => $fullname
+    );
+
+    echo json_encode($resp);
   }else {
-    echo 'failed';
+    echo 0;
   }
 
   $conn -> close();

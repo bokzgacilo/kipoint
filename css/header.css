@@ -60,9 +60,8 @@ header > a {
 }
 
 .avatar {
-  margin-left: 8rem;
+  margin-left: auto;
   padding: 10px;
-  background-color: rgb(36, 94, 210);
 }
 
 .avatar > img{
@@ -80,11 +79,6 @@ header > a {
   color: #fff;
 }
 
-/* .avatar > img:hover {
-  color: #fff;
-  border: 2px #fff solid;
-} */
-
 /* Account Drop */
 
 .account-drop {
@@ -92,9 +86,6 @@ header > a {
   display: inline-block;
 }
 
-.account-drop > a {
-  /* color: #000 !important; */
-}
 
 .account-drop-content, .other-drop-content {
   display: none;
@@ -126,7 +117,6 @@ header > a {
 .account-drop:hover .account-drop-content {
   display: flex;
 }
-/* Dropdown */
 
 .other-drop {
   position: relative;

@@ -1,6 +1,6 @@
 <?php
   include('../connection.php');
-  $getIncomingEvent = $conn -> query("SELECT * FROM appointment ORDER BY starting_date ASC LIMIT 1");
+  $getIncomingEvent = $conn -> query("SELECT * FROM done ORDER BY starting_date ASC LIMIT 1");
   $incoming = '';
   
   while($inc = $getIncomingEvent -> fetch_array()){

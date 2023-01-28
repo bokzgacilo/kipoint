@@ -1,0 +1,34 @@
+1. User View & Overall should be done ASAP
+2. Should have anonymous feedback/comment in Client 
+3. Booking/Reservation should removed in Admin
+4. Need Resechedule/Booking and Cancellation
+5. Client reservation should go to Request
+6. Different Venues
+7. Category in Equipment
+[
+    "011" : [ {
+      "name":"Ariel Jericko Gacilo",
+      "comment": "This is comment 1",
+      "postedDate": "01/24/2023"
+    }
+  ],
+    "012" : [ {
+      "name":"Neil Francis Garcia",
+      "comment": "This is comment 2",
+      "postedDate": "01/23/2023"
+    }
+  ]
+]
+
+{
+  "001" : {
+    "name" : "Ariel Jericko Gacilo",
+    "message" : "This is comment 1",
+    "date" : "01/24/2023"
+  },
+  "002" : {
+    "name" : "Neil Francis Garcia",
+    "message" : "This is comment 12",
+    "date" : "01/23/2023"
+  }
+}

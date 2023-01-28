@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Kipoint</title>
+  <link rel="icon" type="image/x-icon" href="../asset/seal.png">
+  <link rel="stylesheet" href="../main.css">
+  <link rel="stylesheet" href="../css/header.css">
+  <script src="../jquery.js"></script>
+  <script src="index.js"></script>
+  <script src="../plugins/full-calendar/fullcalendar/lib/main.min.js"></script>
+  <script src="../plugins/formToJson.js"></script>
+  <script src="../plugins/sweetalert2@11.js"></script>
+  <script src="../asset/bootstrap/js/bootstrap.min.js"></script>
+  
+</head>
+<body>
+  <div class="backdrop">
+    <span class="loader"></span>
+  </div>
+
+  <style>
+    #reservationForm > div {
+      flex-direction: column;
+    }
+
+    .stepper {  
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;  
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .stepper-bubble {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 12px;
+      border: 1px #fff solid;
+    }
+
+    .step-active {
+      border: 1px #d7d7d7 solid;
+      transition: 0.5s;
+    }
+  </style>
+  
+
+  <div id='changePassword' name='changePassword' class="bok-modal">
+    <div class="bok">
+      <h4 class="mt-2">Change Password</h4>
+      <form id="changePasswordForm" class="mb-4">
+        <div class="form-floating mt-4 mb-3">
+          <input id="changePassword_Input" type="password" name="password" class="form-control" placeholder="Password">
+          <label for="floatingInput">New Password</label>
+        </div>
+        <p class="error-message"></p>
+        <button id='changePassword_Button' class="btn btn-primary btn-lg w-100" type="submit">Close</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="sidebar" id="account-sidebar">
+    <div class="sidebar-content">
+      <div class="sidebar-header">
+        <p id='account-name' class="is-size-5">Ariel Jericko Gacilo</p>
+        <i class="close-sidebar fa-solid fa-xmark"></i>
+      </div>
+      <div class="sidebar-body">
+        Body
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <a name='default' id="brand">KIPOINT</a>
+    <div class="navigators"> 
+      <a href="#reservation" class='navigate' name='reservation'>
+        <i class="fa-solid fa-clock"></i>
+        <p>Events</p>
+      </a>
+      <a href="#inventory" class='navigate' name='inventory'>
+        <i class="fa-solid fa-warehouse"></i>
+        <p>Equipments</p>
+      </a>
+      <a href="#resident" class='navigate' name='resident'>
+        <i class="fa-solid fa-users"></i>
+        <p>Accounts</p>
+      </a>
+      <!-- <a href='#complaints' class='navigate' name='complaints'>
+        <i class="fa-solid fa-solid fa-file-exclamation"></i>
+        <p>Complaints</p>
+      </a> -->
+      <div class="other-drop">
+        <p>
+          Others 
+          <i class="ms-2 fa-solid fa-chevron-down"></i>
+        </p>
+        <div class="other-drop-content">
+          <a>
+            <i class="fa-solid fa-sitemap me-2"></i>  
+            Barangay Organizational Chart
+          </a>
+          <a>
+            <i class="fa-solid fa-list me-2"></i>  
+            Logs
+          </a>
+          <a>
+            <i class="fa-solid fa-file-export me-2"></i>
+            Export Data
+          </a>
+          <a>
+            <i class="fa-solid fa-database me-2"></i>  
+            Access Database
+          </a>
+        </div>
+      </div>
+      <div class="avatar">
+        <img src="../asset/default.png">
+      </div>
+    </div>
+  </header>
+
+  <div class="root">
+
+  </div>
+
+</body>
+</html>

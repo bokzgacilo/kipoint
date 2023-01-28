@@ -1,6 +1,6 @@
 // Whitespace Checker
 function containsWhitespace(str) {
-  var specialChars = "<>@!#$%^&*()_+[]{}?:;|'\"\\,./~`-="
+  var specialChars = "<>@!#$%^&*()_+[]{}?:;|'\"\\,./~`-=";
   return /\s/.test(str);
 }
 
@@ -15,7 +15,6 @@ function bothTrue(user, pass){
 }
 
 $(document).ready(function(){
-  // Initialize Registration Data and Boolean
   var reg_password, reg_username;
   var reg_password_bool = false;
   var reg_username_bool = false;
@@ -132,7 +131,6 @@ $(document).ready(function(){
     e.preventDefault();
     $('.backdrop').css('display', 'flex');
     var fullname = $('#fullname-register').val();
-
     $.ajax({
       type: 'post',
       url: 'api/register.php',
@@ -150,7 +148,6 @@ $(document).ready(function(){
             icon: 'success',
             confirmButtonText: 'Close'
           })
-
           $('#register-form')[0].reset();
         }, 2500)   
       }
@@ -161,6 +158,7 @@ $(document).ready(function(){
     $('.backdrop').css('display', 'flex');
     e.preventDefault();
     var loginformdata = $(this).formToJson();
+
     $.ajax({
       type: 'post',
       url: 'api/login.php',
@@ -169,10 +167,12 @@ $(document).ready(function(){
         password: loginformdata['password'],
       },
       success: function(response){
+        const resp = JSON.parse(response);
         setTimeout(function(){
           $('.backdrop').css('display', 'none');
-          if(response == 'success'){
-            window.location.href = 'index.php';
+          if(resp['status'] == 1){
+            sessionStorage.setItem("name", resp['fullname']);
+            window.location.href = 'index.html#reservation';
           }else {
             Swal.fire({
               title: 'Error!',
@@ -181,7 +181,6 @@ $(document).ready(function(){
               confirmButtonText: 'Retry'
             })
           }
-          console.log(response)
         }, 2500)
       }
     })
