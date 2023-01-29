@@ -7,51 +7,18 @@
   <title>Dashboard - Kipoint</title>
   <link rel="icon" type="image/x-icon" href="../asset/seal.png">
   <link rel="stylesheet" href="../main.css">
+  <link rel="stylesheet" href="css/events-web.css">
   <link rel="stylesheet" href="../css/header.css">
   <script src="../jquery.js"></script>
   <script src="index.js"></script>
-  <script src="../plugins/full-calendar/fullcalendar/lib/main.min.js"></script>
-  <script src="../plugins/formToJson.js"></script>
   <script src="../plugins/sweetalert2@11.js"></script>
   <script src="../asset/bootstrap/js/bootstrap.min.js"></script>
-  
 </head>
+
 <body>
   <div class="backdrop">
     <span class="loader"></span>
   </div>
-
-  <style>
-    #reservationForm > div {
-      flex-direction: column;
-    }
-
-    .stepper {  
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;  
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .stepper-bubble {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 10px;
-      padding: 0.5rem 1rem;
-      border-radius: 50px;
-      font-size: 12px;
-      border: 1px #fff solid;
-    }
-
-    .step-active {
-      border: 1px #d7d7d7 solid;
-      transition: 0.5s;
-    }
-  </style>
-  
 
   <div id='changePassword' name='changePassword' class="bok-modal">
     <div class="bok">
@@ -74,7 +41,7 @@
         <i class="close-sidebar fa-solid fa-xmark"></i>
       </div>
       <div class="sidebar-body">
-        Body
+        <a class="button is-link w-100" href="api/logout.php">Logout</a>
       </div>
     </div>
   </div>
@@ -94,10 +61,6 @@
         <i class="fa-solid fa-users"></i>
         <p>Accounts</p>
       </a>
-      <!-- <a href='#complaints' class='navigate' name='complaints'>
-        <i class="fa-solid fa-solid fa-file-exclamation"></i>
-        <p>Complaints</p>
-      </a> -->
       <div class="other-drop">
         <p>
           Others 

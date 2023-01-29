@@ -99,6 +99,7 @@ header > a {
   position: absolute;
   background-color: #fff;
   width: 20vw;
+  z-index: 20;
   transition: 0.25s;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;

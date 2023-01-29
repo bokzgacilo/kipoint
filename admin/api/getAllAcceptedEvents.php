@@ -24,7 +24,7 @@
       ";
     }
   }else {
-    echo "<p>No Appointments.</p>";
+    echo "<h4 class='is-size-6'>No accepted event. Your calendar is clean 😊</h4>";
   }
 
   $conn -> close();

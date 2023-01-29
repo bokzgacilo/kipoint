@@ -66,16 +66,16 @@
             <div class='date-card'>
               <p>Starting Date:</p>
               <i class='fa-regular fa-calendar'></i>
-              <p>January 18, 2023</p>
+              <p>".date('F j, Y', strtotime($row['starting_date']))."</p>
               <i class='fa-regular fa-clock'></i>
-              <p>9:24 AM</p>
+              <p>".date('h:i a', strtotime($row['starting_date']))."</p>
             </div>
             <div class='date-card'>
               <p>Ending Date:</p>
               <i class='fa-regular fa-calendar'></i>
-              <p>".$row['ending_date']."</p>
+              <p>".date('F j, Y', strtotime($row['ending_date']))."</p>
               <i class='fa-regular fa-clock'></i>
-              <p>9:24 AM</p>
+              <p>".date('h:i a', strtotime($row['ending_date']))."</p>
             </div>
             <div class='date-card'>
               <i class='fa-regular fa-map-location-dot'></i>

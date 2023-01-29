@@ -105,11 +105,12 @@ function getEvent(){
 } 
 
 function postComment(id){
-  
   $("form[name='"+id+"']").submit(function(event){
     event.preventDefault();
+
     var comment = $("form[name='"+id+"'] input").val();
     var username = '';
+
     if($('#anonymousSwitch').is(":checked")){
       username = 'Anonymous User';
     }else {
@@ -130,6 +131,8 @@ function postComment(id){
         })
       },
       success: (response) => {
+        console.log(response)
+
         Swal.fire({
           title: 'Comment Posted',
           icon: 'success',
@@ -204,6 +207,7 @@ $(document).ready(function(){
         $('.backdrop').css({'display' : 'flex'})
       },
       success: (response) => {
+        console.log(response)
         Swal.fire({
           title: 'Requested Successfully',
           text: "Your reservation was successfully requested.",

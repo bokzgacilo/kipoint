@@ -5,7 +5,7 @@
   $username = $_POST['username'];
   $comment = $_POST['message'];
 
-  $sql = "SELECT * FROM dibe WHERE id='$eventID'";
+  $sql = "SELECT * FROM done WHERE id='$eventID'";
   $result = $conn -> query($sql);
   $array_of_comment = '';
 

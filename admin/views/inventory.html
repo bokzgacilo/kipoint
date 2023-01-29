@@ -1,159 +1,64 @@
+<link rel="stylesheet" href="css/equipment-web.css">
+<script src="js/equipment.js"></script>
+
 <div class="bok-modal" id="addInventory">
   <div class="bok w-50">
     <div class="bok-modal-header">
-      <h4 class="mt-2">
-        Add Item
+      <h4 class="is-size-4">
+        Add New Equipment
       </h4>
       <i class="close-modal fa-solid fa-x"></i>
     </div>
-    <form id="addItemForm" class="mb-4">
-      <div class="form-floating mt-4 mb-3">
-        <input type="text" name="item_Name" class="form-control" placeholder="Item Name">
-        <label for="floatingInput">Item Name</label>
+    <form id="addItemForm">
+      <h4>Item Name</h4>
+      <input required type="text" id="item_name" class="input" placeholder="Item Name">
+      <h4>Serial Code</h4>
+      <input required type="text" id="item_serialcode" class="input" placeholder="Serial Code">
+      <h4>Item Brand</h4>
+      <input required type="text" id="item_brand" class="input" placeholder="Item Brand">
+      <h4>Category</h4>
+      <div class="select w-100">
+        <select required id='item_category' class="w-100">
+          <option>Equipment</option>
+          <option>Utility</option>
+        </select>
       </div>
-      <div class="form-floating mt-2 mb-3">
-        <input type="text" name="item_SerialCode" class="form-control" placeholder="Serial Code">
-        <label for="floatingInput">Serial Code</label>
-      </div>
-      <div class="form-floating mt-2 mb-3">
-        <input type="text" name="item_Brand" class="form-control" placeholder="Item Brand">
-        <label for="floatingInput">Item Brand</label>
-      </div>
-      <div class="form-floating mt-2 mb-3">
-        <input type="number" name="quantity" class="form-control" placeholder="Quantity">
-        <label for="floatingInput">Quantity</label>
-      </div>
-      <button id='addItem_Button' class="btn btn-primary btn-lg w-100" type="submit">Add Item</button>
+      <h4>Quantity</h4>
+      <input required type="number" id="item_quantity" class="input" placeholder="Quantity">
+      <button class="mt-4 button is-primary w-100" type="submit">Add Item</button>
     </form>
   </div>
 </div>
 
 <main>
-  <h4 class="mb-2"> Inventory</h4>
+  <h4 class="mb-2 is-size-4">Equipments</h4>
   <h6 class="mb-4">This is all the equipment that belongs to the Barangay Pinagsama.</h6>
   <div>
-    <button type="button" name='addInventory' class="btn btn-primary modal-opener">
+    <button id='add-inventory-button' class="button is-link is-outlined">
       Add Item
     </button>
-    <div id="InventoryList" class="inventory-tab" style="display: block;">
-      <div id="inventory" class="">
-        
+    <div class="select w-25">
+      <select id='sortCategory' class="w-100">
+        <option>Equipment</option>
+        <option>Utility</option>
+      </select>
+    </div>
+    <button id='add-inventory-button' class="button is-link">
+      Sort
+    </button>
+    <div class="equipment-list mt-4">
+      <div class="equipment-header">
+        <p class="col-2">Action</p>
+        <p class="col-2">Serial Code</p>
+        <p class="col-3">Item Name</p>
+        <p class="col-2">Brand</p>
+        <p class="col-1">Quantity</p>
+        <p class="col-1">Reserved</p>
+        <p class="col-1">Available</p>
       </div>
+    </div>
+    <div class="equipment-container">
+      
     </div>
   </div>
 </main>
-
-<style>
-  #inventory {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    margin-top: 1rem;
-  }
-
-  .inventory-list-header {
-    display: flex;
-    flex-direction: row;
-    padding: 0 10px;
-    font-family: Inter-SemiBold;
-    padding: 8px 0;
-    font-size: 14px;
-    background-color: var(--table-header);
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    color: #fff;
-    align-items: center;
-  }
-  
-  .inventory-item {
-    display: flex;
-    flex-direction: row;
-    padding: 0.2rem 10px;
-    border-bottom: 1px rgb(226, 226, 226) solid;
-  }
-
-  .inventory-list-content {
-    display: flex;
-    flex-direction: column;
-  }
-</style>
-
-<script>
-  $('.close-modal').click(function(){
-    $(this).parent().parent().parent().css('display', 'none');
-  })
-
-  function getInventory(){
-    $.ajax({
-      type: 'get',
-      url: 'api/getInventory.php',
-      success: function(response){
-        $('#inventory').html(response);
-      }
-    })
-  }
-
-  $(document).ready(function(){
-    $('').addClass('selected');
-    getInventory();
-
-    $('#addItemForm').submit(function(event){
-      event.preventDefault();
-      $('.backdrop').css('display', 'flex');
-      var formdata = $(this).formToJson();
-      $.ajax({
-        type: 'post',
-        url: 'api/AddInventory.php',
-        data: {
-          itemName : formdata['item_Name'],
-          itemSerialCode : formdata['item_SerialCode'],
-          itemBrand : formdata['item_Brand'],
-          quantity : formdata['quantity']
-        },
-        success: function(response){
-          if(response == 1){
-            Swal.fire({
-              title: 'Item Added',
-              text: 'Item was added to inventory.',
-              icon: 'success',
-              allowOutsideClick: false,
-              confirmButtonText: 'Close'
-            }).then((result) => {
-              if(result.isConfirmed){
-                $('.backdrop').css('display', 'none');  
-                $('#addItemForm')[0].reset();
-                $('.close-modal').click();
-              }
-            }) 
-          }else {
-
-          }
-          
-          $('.backdrop').css('display', 'none');  
-          getInventory();
-        }
-      })
-    })
-
-  })
-
-  $('.addItemModalButton').click(function(){
-    $('.bok-modal-addItem').css('display', 'flex');
-  })
-
-  $('.edit').click(function(){
-    var target = $(this).parent().parent().attr('id');
-    console.log(target)
-  })
-
-  $('.delete').click(function(){
-    var target = $(this).parent().parent();
-    $('.backdrop').css('display', 'flex');
-
-    setTimeout(function(){
-      $('.backdrop').css('display', 'none');
-      target.fadeOut('slow');
-
-    }, 400)
-  })
-</script>

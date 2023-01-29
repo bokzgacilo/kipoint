@@ -52,6 +52,31 @@ function getIncomingEvent(){
   })
 }
 
+function acceptEvent(id){
+  $.ajax({
+    type: 'post',
+    url: 'api/acceptEvent.php',
+    data: {requestID: id},
+    beforeSend: () => {
+      $('.backdrop').css({'display' : 'flex'})
+    },
+    success: (response) => {
+      Swal.fire(
+        'Event Accepted!',
+        'Requested event was moved to accepted and can be shown to the Calendar.',
+        'success'
+      )
+
+      closeModal();
+    },
+    complete: () => {
+      $('.backdrop').css({'display' : 'none'})
+      getAllEvents();
+      renderCalendar();
+    }
+  })
+}
+
 function generateDetails(id){
   $.ajax({
     type: 'get',
@@ -71,27 +96,92 @@ function generateDetails(id){
   })
 }
 
-function closeModal(){
+function reviewEvent(id){
+  $.ajax({
+    type: 'get',
+    url: 'api/getRequestDetails.php',
+    data: {
+      requestID: id
+    },
+    beforeSend: () => {
 
+    },
+    success: (response) => {
+      $('#request-body').html(response)
+    },
+    complete: () => {
+      $('#requestDetails').css({
+        'display' : 'flex'
+      })
+    }
+  })
+}
+function viewCancelled(id){
+  $.ajax({
+    type: 'get',
+    url: 'api/getCancelledEvents.php',
+    data: {
+      requestID: id
+    },
+    beforeSend: () => {
+
+    },
+    success: (response) => {
+      $('#cancelled-body').html(response)
+    },
+    complete: () => {
+      $('#cancelledDetails').css({
+        'display' : 'flex'
+      })
+    }
+  })
+}
+
+function closeModal(){
+  $('.bok-modal').css({'display' : 'none'})
 }
 
 function cancelEvent(id){
-  alert(id)
+  $.ajax({
+    type: 'post',
+    url: 'api/cancelEvent.php',
+    data: {requestID: id},
+    beforeSend: () => {
+      $('.backdrop').css({'display' : 'flex'})
+    },
+    success: (response) => {
+      Swal.fire(
+        'Event Cancelled!',
+        'Event was moved to cancelled',
+        'success'
+      )
+
+      closeModal();
+    },
+    complete: () => {
+      $('.backdrop').css({'display' : 'none'})
+      getAllEvents();
+      renderCalendar();
+    }
+  })
 }
 
 function getCalendarItem(item){
-  var schedules = $.parseJSON(item)
+  var schedules = JSON.parse(item);
+  console.log(schedules)
   var events = [];
   for(var key in schedules) {
     if (schedules.hasOwnProperty(key)) {
       events.push({ 
         id: schedules[key].requestID,
         title: schedules[key].client_name, 
-        start: schedules[key].starting_date, 
-        end: schedules[key].ending_date
+        start: schedules[key].sdate, 
+        end: schedules[key].edate
       });
     }
   }
+
+  console.log(events)
 
   calendar = new Calendar(document.getElementById('calendar'), {
   headerToolbar: {

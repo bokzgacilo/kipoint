@@ -3,7 +3,7 @@
     <h4 class="mb-3">Residents</h4>
     <h6 class="mb-3">All of the person listed below is a Barangay Pinagsama citizen that registers to the Kipoint Platform.</h6>
     <div>
-      <input id='search-resident' type='search' placeholder="Start searching resident.." class="w-25 form-control-sm form form-control">
+      <input id='search-resident' type='search' placeholder="Start searching resident.." class="w-25 input is-small">
     </div>
   </div>
   <div id='resident-list'>
@@ -27,7 +27,7 @@
   function getAllResident(){
     $.ajax({
       type: 'get',
-      url: 'api/getAllResident.php',
+      url: 'api/getAllUseraccounts.php',
       success: function(response){
         $('.resident-list').html(response)
       }

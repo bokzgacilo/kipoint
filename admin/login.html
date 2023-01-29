@@ -5,10 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/x-icon" href="../asset/seal.png">
-  <title>Login - Kipoint</title>
+  <title>Admin Login - Kipoint</title>
   <link rel="stylesheet" href="../main.css">
   <script src="../jquery.js"></script>
-  <script src="../plugins/formToJson.js"></script>
+  <script src="login.js"></script>
   <script src="../plugins/sweetalert2@11.js"></script>
 </head>
 <body>
@@ -17,72 +17,31 @@
       width: 25vw;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      padding-top: 2rem;
+      padding-top: 5rem;
     }
 
     .login > img {
-      width: 50%;
+      width: 40%;
       height: auto;
       object-fit: cover;
       align-self: center;
     }
-
-    .backdrop {
-      background-color: var(--backdrop);
-      width: 100vw;
-      height: 100vh;
-      display: none;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1;
-      position: fixed; 
-    }
   </style>
-  <div class="modal fade" id="alertmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Alert</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Username and password is incorrect
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-        </div>
-      </div>
-    </div>
+
+  <div class="backdrop">
+    <span class="loader"></span>
   </div>
+
   <div class="container-fluid d-flex flex-column align-items-center">
-    <div class="backdrop">
-      <div class="spinner-border text-light" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
-    </div>
     <div class="login">
       <img src="../asset/seal.png" class="mb-4">
-      <h4>Login</h4>
-      <form id="login-form">
-        <div class="form-floating mb-3">
-          <input required id='username' type="text" name="username" class="form-control" placeholder="Username">
-          <label for="floatingInput">Username</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input required type="password" name="password" class="form-control form-control-sm" placeholder="Password">
-          <label for="floatingInput">Password</label>
-        </div>
-        <button class="btn btn-primary w-100">Login</button>
+      <h4 class="is-size-4 mt-4 mb-4">Admin Login</h4>
+      <form id="loginForm">
+        <input required type="text" class="input mb-3" placeholder="Username" id="username">
+        <input required type="password" class="input mb-3" id="password" placeholder="Password">
+        <button type='submit' class="button is-primary w-100">LOGIN</button>
       </form>
-      <button class="btn btn-link btn-sm">Forgot Password?</button>
-      <hr>
-
     </div>
   </div>
-
-  <script src="login.js"></script>
-  <script src="../asset/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

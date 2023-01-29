@@ -12,7 +12,7 @@
         <div class='equipment'>
           <p class='col-3'>".$row['serial_code']."</p>
           <p class='col'>".$row['name']."</p>
-          <p class='col-2'>".$row['quantity']."</p>
+          <p class='col-2'>".$row['available']."</p>
           <div class='col-2'>
             <input type='number' class='is-small input w-100' onchange='handleChangeEquipment(this.id)' value='0' id='".$row['serial_code']."'>
           </div>

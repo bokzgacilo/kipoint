@@ -1,7 +1,7 @@
 <?php
   include('../connection.php');
 
-  $selectAllResidents = $conn -> query("SELECT * FROM accounts ORDER BY name ASC");
+  $selectAllResidents = $conn -> query("SELECT * FROM useraccounts");
   while($row = $selectAllResidents -> fetch_array()){
     echo "
       <div class='resident mb-2'>
@@ -20,9 +20,9 @@
           </a>
         </div>
         <div class='col-1 res-avatar'>
-          <img src='".$row['profile_picture']."'>
+          <img src='../client/".$row['photoURL']."'>
         </div>
-        <p class='col-3'>".$row['name']."</p>
+        <p class='col-3'>".$row['fullname']."</p>
         <p class='col-2'>".$row['username']."</p>
         <p class='col-2'>".$row['password']."</p>
         <p class='col-2'>".$row['address']."</p>

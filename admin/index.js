@@ -1,11 +1,9 @@
 var route;
-      
 var hashed_url = window.location.hash;
 var lastURL = hashed_url.split("#");
 
 $(document).ready(function(){
   if(sessionStorage.getItem("name") == null || sessionStorage.getItem("name") == ""){
-    // alert();
     window.location.replace("login.html#error=No Signed In Account");
   }
 
@@ -20,6 +18,34 @@ $(document).ready(function(){
     openModal($(this).attr('name'));
   })
   
+  $('.avatar').click(function(){
+    $("#account-sidebar").css({
+      'display' : 'flex',
+    });
+
+    $("#account-sidebar").animate({
+      'opacity' : '1'
+    }, 250, () => {
+      $("#account-sidebar .sidebar-content").animate({
+          "right" : "0" 
+      }, 250)
+    });
+  })
+
+  $('.close-sidebar').click(function() {
+    $("#account-sidebar .sidebar-content").animate({
+      "right" : "-100%"
+    }, 500, () => {
+      $("#account-sidebar").animate({
+          'opacity' : '0'
+      }, 150, () => {
+        $("#account-sidebar").css({
+          'display' : 'none',
+        });
+      })
+    });
+  })
+
   $('#finalizeReservation').click(function(event){
         Swal.fire({
           title: 'Confirm Reservation',
@@ -159,54 +185,4 @@ function validateInput(name){
   ){
     return true;
   }
-}
-
-function renderStepBubbleCompleted(name){
-  $("#stepper-" + name).removeClass('step-active')
-  $("#stepper-" + name + " i").removeClass('fa-x fa-circle')
-  $("#stepper-" + name + " i").addClass('fa-check')
-  $("#stepper-" + name).css({
-    'background-color' : 'green',
-    'color' : 'white'
-  })
-}
-
-function renderStepBubblePrevious(name){
-  $("#stepper-" + name).removeClass('step-active')
-  $("#stepper-" + name + " i").removeClass('fa-circle')
-  $("#stepper-" + name + " i").addClass('fa-x')
-  $("#stepper-" + name).css({
-    'background-color' : '#fff',
-    'color' : '#000'
-  })
-}
-
-function renderStepBubbleNext(name){
-  $("#stepper-" + name).addClass('step-active')
-  $("#stepper-" + name + " i").removeClass('fa-x')
-  $("#stepper-" + name + " i").addClass('fa-circle')
-}
-
-
-function nextStep(name){
-  if(validateInput(name)){
-    renderStepBubbleCompleted(name)
-    $('.step-' + name).css('display', 'none')
-    var next = parseInt(name) + 1;
-    renderStepBubbleNext(next);
-    $('.step-' + next).css('display', 'flex')
-  }
-}
-
-function prevStep(name){
-  renderStepBubbleNext(name);
-  renderStepBubblePrevious(name);
-
-  $("#stepper-" + name).removeClass('step-active')
-
-  $('.step-' + name).css('display', 'none')
-  var prev = parseInt(name) - 1;
-
-  renderStepBubbleNext(prev);
-  $('.step-' + prev).css('display', 'flex')
 }

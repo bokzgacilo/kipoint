@@ -12,8 +12,6 @@
   $start = date("F j, Y h:i a", strtotime($starting_date));
   $end = date("F j, Y h:i a", strtotime($ending_date));
 
-  // echo $start;
-  // echo $end;
   $equipmentArray = json_decode($equipment, true);
 
   if(count($equipmentArray) === 0){
@@ -22,7 +20,6 @@
     for ($i = 0; $i < count($equipmentArray); $i++) { 
       $available = '';
       $in_reserved = '';
-      echo $equipmentArray[$i]['serial_code'] . ', ' . $equipmentArray[$i]['item_count'];
       $selectItem = $conn -> query("SELECT * FROM inventory WHERE serial_code='".$equipmentArray[$i]['serial_code']."'");
       
       while($item = $selectItem -> fetch_array()){
@@ -65,9 +62,7 @@
 
   if($result){
     $updateRequestID = $conn -> query("UPDATE useraccounts SET requestID='$requestID' WHERE username='$client_name'");
-    echo 'success';
   }
-  
 
   $conn -> close();
 ?>

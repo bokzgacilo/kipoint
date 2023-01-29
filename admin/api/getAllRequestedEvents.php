@@ -18,13 +18,13 @@
           </div>
           <div>
             <p>Status: ".$row['status']."</p>
-            <button onclick='generateDetails(".$row['requestID'].")' class='button is-link is-small'>Show Full Details</button>
+            <button id='".$row['requestID']."' onclick='reviewEvent(this.id)' class='button is-link is-small'>Review Request</button>
           </div>
         </div>
       ";
     }
   }else {
-    echo "<p>No Appointments.</p>";
+    echo "<h4 class='is-size-6'>No event request.</h4>";
   }
 
   $conn -> close();

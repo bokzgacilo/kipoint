@@ -1,4 +1,6 @@
+<script src="../plugins/full-calendar/fullcalendar/lib/main.min.js"></script>
 <script src="js/event.js"></script>
+
 <script>
   $(document).ready(function(){
     let tabsWithContent = (function () {
@@ -39,101 +41,21 @@
 })
 </script>
 
-<style>
-  .reservations {
-    display: flex;
-    flex-direction: row;
-  }
-
-  #calendar {
-    padding: 1rem;
-    font-size: 12px;
-  }
-
-  .reservation-Calendar {
-    display: none;
-  }
-
-  #appointmentList {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
-    max-height: 66vh;
-    overflow: auto;
-    padding: 10px;
-  }
-
-  .appointment {
-    width: 50%;
-    max-height: 15vh;
-    font-size: 13px;
-    padding: 1rem 1.5rem;
-    border-radius: 8px;
-    background-color: #fff;
-    display: flex;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .appointment > div > p {
-    font-family: Inter-SemiBold;
-  }
-
-  h4 {
-    font-family: Inter-Bold;
-  }
-
-  :root {
-    --bs-success-rgb: 71, 222, 152 !important;
-  }
-
-  .btn-info.text-light:hover,
-  .btn-info.text-light:focus {
-    background: #000;
-  }
-  table, tbody, td, tfoot, th, thead, tr {
-    border-color: #ededed !important;
-    border-style: solid;
-    border-width: 1px !important;
-  }
-
-  table {
-    overflow: auto !important;
-  }
-
-  .event-details, .equipments-used{
-    display: flex;
-    flex-direction: column;
-  }
-
-  .item {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  #tabs-with-content .tabs:not(:last-child) {
-    margin-bottom: 0;
-  }
-
-  #tabs-with-content .tab-content {
-    padding: 1rem;
-    display: none;
-  }
-
-  #tabs-with-content .tab-content.is-active {
-    display: block;
-  }
-
-</style>
-
 <div class="bok-modal" id="eventDetails">
   <div id='event-detail-body' class="bok w-50">
+    <!-- Query -->
+  </div>
+</div>
 
+<div class="bok-modal" id="requestDetails">
+  <div id='request-body' class="bok w-50">
+    <!-- Query -->
+  </div>
+</div>
 
+<div class="bok-modal" id="cancelledDetails">
+  <div id='cancelled-body' class="bok w-50">
+    <!-- Query -->
   </div>
 </div>
 
@@ -172,12 +94,13 @@
           </ul>
         </div>
         <div class="events-list">
-          <section id='accepted-events' class="tab-content">Pictures content</section>
-          <section id='done-events' class="tab-content">Music content</section>
-          <section id='requested-events' class="tab-content">Videos content</section>
-          <section id='cancelled-events' class="tab-content">Documents content</section>
+          <section id='accepted-events' class="tab-content">Accepted</section>
+          <section id='done-events' class="tab-content">Done</section>
+          <section id='requested-events' class="tab-content">Requested</section>
+          <section id='cancelled-events' class="tab-content">Cancelled</section>
         </div>
       </div>
     </div>
   </div>
 </main>
+

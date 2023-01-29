@@ -4,44 +4,94 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="../asset/seal.png">
   <title>Login - Kipoint</title>
   <link rel="stylesheet" href="../main.css">
   <script src="../jquery.js"></script>
 </head>
 <body>
   <style>
-    .user-login-form-container {
+    .register {
       display: flex;
       flex-direction: column;
-      width: 25%;
+      width: 25vw;
       align-self: center;
     }
 
     img {
       align-self: center;
-      margin: 2rem 0;
-      width: 50%;
+      margin-top: 4rem;
+      width: 40%;
       height: auto;
       object-fit: cover;
     }
     
   </style>
   <div class="container d-flex flex-column justify-content-center">
-    <div class="user-login-form-container">
-      <img src="../asset/seal.png">
-      <h4 class="is-size-4">Register</h4>
-      <form class="user-login-form">
-        <input id='fullname' name="fullname" class="input is-normal is-hovered" type="text" placeholder="Fullname (L, F, M.I)">
-        <input id='username' name="username" class="input is-normal is-hovered" type="text" placeholder="Username">
-        <input id='username' name="username" class="input is-normal is-hovered" type="password" placeholder="Password">
-        <button class="mt-4 button is-link w-100">Primary</button>
+    <div class="register">
+      <img src="../asset/seal.png" class="mb-4">
+      <h4 class="is-size-4 mb-4 mt-4">Register</h4>
+      <form id="registerForm">
+        <input required id="fullname" class="mb-3 input" type="text" placeholder="Fullname (Lastname, Firstname, Middle Initial)">
+        <input required id="username" class="mb-3 input" type="text" placeholder="Username">
+        <input required id="password" class="mb-3 input" type="password" placeholder="Password">
+        <button class="mt-4 button is-primary w-100">REGISTER</button>
       </form>
     </div>
   </div>
 
   <script>
+    function contSpecChar(str) {
+      var char = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+      return char.test(str);
+    }
+
+    function contExcludedComma(str){
+      var char = /[`!@#$%^&*()_+\-=\[\]{};':"\\|.<>\/?~]/;
+      return char.test(str);
+    }
+
+    function contWhiteSpace(str) {
+      var char = /\s/;
+      return char.test(str);
+    }
+
     $(document).ready(function(){
-      // alert()
+      $('#registerForm').submit(function(event){
+        event.preventDefault();
+
+        var fullname = $('#fullname').val();
+        var username = $('#username').val();
+        var password = $('#password').val();
+
+        if(
+          contWhiteSpace(username) === true 
+          || contSpecChar(username) === true 
+          || contExcludedComma(fullname) === true
+          || contWhiteSpace(password) === true){
+            Swal.fire(
+              'Registration Failed',
+              'Please carefully checked your inputs.',
+              'error'
+              )
+        }else {
+          $.ajax({
+            type: 'post',
+            url: 'api/register.php',
+            data: {
+              fullname: fullname,
+              username: username,
+              password: password
+            },
+            beforeSend: () => {
+
+            },
+            success: (response) => {
+              console.log(response)
+            }
+          })
+        }
+      })
     })
   </script>
 </body>

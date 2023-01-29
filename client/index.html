@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="icon" type="image/x-icon" href="../asset/seal.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Kipoint</title>
   <link rel="stylesheet" href="../main.css">
@@ -28,18 +29,19 @@
         object-fit: cover;
       }
     }
+
     @media only screen and (min-width: 500px){
       .user-login-form-container {
         display: flex;
         flex-direction: column;
-        width: 25%;
+        width: 25vw;
+        margin-top: 4rem;
         align-self: center;
       }
 
       img {
         align-self: center;
-        margin: 2rem 0;
-        width: 50%;
+        width: 40%;
         height: auto;
         object-fit: cover;
       }
@@ -49,15 +51,15 @@
   </style>
   <div class="container d-flex flex-column justify-content-center">
     <div class="user-login-form-container">
-      <img src="../asset/seal.png">
-      <h4 class="is-size-4">Login</h4>
-      <form id="userFormLogin" method='post' enctype="multipart/form-data" class="user-login-form">
-        <input required name="username" class="mt-4 mb-3 input is-normal is-small is-hovered" type="text" placeholder="Username">
-        <input required name="password" class="mb-3 input is-normal is-small is-hovered" type="password" placeholder="Password">
-        <button type='submit' class="mb-4 button is-link w-100 is-small">Login</button>
+      <img src="../asset/seal.png" class="mb-4">
+      <h4 class="is-size-4 mb-4 mt-4">Client Login</h4>
+      <form id="userFormLogin">
+        <input required id="username" class="mb-3 input" type="text" placeholder="Username">
+        <input required id="password" class="mb-3 input" type="password" placeholder="Password">
+        <button type='submit' class="mb-4 button is-primary w-100">LOGIN</button>
       </form>
-      <button class="mt-4 w-100 button is-small">Forgot Password</button>
-      <a href="register.html" class="mt-4 button is-success w-100 is-small">Register</a>
+      <button class="mt-4 w-100 button">Forgot Password</button>
+      <a href="register.html" class="mt-4 button is-info is-outlined w-100">Register</a>
     </div>
   </div>
 
@@ -65,18 +67,17 @@
     $(document).ready(function(){
       $('#userFormLogin').submit((event) => {
         event.preventDefault();
-        var form = $("#userFormLogin")[0];
-        var formdata = new FormData(form);
+
+        var username = $('#username').val();
+        var password = $('#password').val();
 
         $.ajax({
           type: 'post',
           url: 'api/login.php',
-          enctype: 'multipart/form-data',
-          data: formdata,
-          processData: false,
-          contentType: false,
-          cache: false,
-          timeout: 800000,
+          data: {
+            username: username,
+            password: password
+          },
           beforeSend: () => {
 
           },
