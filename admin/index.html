@@ -20,6 +20,31 @@
     <span class="loader"></span>
   </div>
 
+  <div class="bok-modal" id="eventDetails">
+    <div id='event-detail-body' class="bok w-50">
+      <!-- Query -->
+    </div>
+  </div>
+
+  <div id='exportModal' name='exportModal' class="bok-modal">
+    <div class="bok">
+      <h4 class="is-size-4 mt-4 mb-4">Export Data</h4>
+      <form id="generateReportForm">
+        <div class="mt-4 mb-2 select w-100">
+          <select required id="exportFile" class="w-100">
+            <option value="1">List of Equipments</option>
+            <option value="2">List of Accounts</option>
+            <option value="3">List of Finished Events</option>
+          </select>
+        </div>
+        <button type='submit' class="mt-4 button is-link w-100" type="submit">Generate</button>
+        <div id="generatedFile" class="mt-4 mb-4">
+          <p>No Generated File</p>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <div id='changePassword' name='changePassword' class="bok-modal">
     <div class="bok">
       <h4 class="mt-2">Change Password</h4>
@@ -57,9 +82,17 @@
         <i class="fa-solid fa-warehouse"></i>
         <p>Equipments</p>
       </a>
-      <a href="#resident" class='navigate' name='resident'>
+      <a href="#accounts" class='navigate' name='accounts'>
         <i class="fa-solid fa-users"></i>
         <p>Accounts</p>
+      </a>
+      <a href="#baranggayofficials" class='navigate' name='baranggayofficials'>
+        <i class="fa-solid fa-users"></i>
+        <p>Barangay Officials</p>
+      </a>
+      <a href="#venue" class='navigate' name='venue'>
+        <i class="fa-solid fa-map-location-dot"></i>
+        <p>Venues</p>
       </a>
       <div class="other-drop">
         <p>
@@ -67,21 +100,13 @@
           <i class="ms-2 fa-solid fa-chevron-down"></i>
         </p>
         <div class="other-drop-content">
-          <a>
-            <i class="fa-solid fa-sitemap me-2"></i>  
-            Barangay Organizational Chart
-          </a>
-          <a>
+          <a href="#logs" class='navigate' name='logs'>
             <i class="fa-solid fa-list me-2"></i>  
             Logs
           </a>
-          <a>
+          <a class="modal-opener" name="exportModal">
             <i class="fa-solid fa-file-export me-2"></i>
             Export Data
-          </a>
-          <a>
-            <i class="fa-solid fa-database me-2"></i>  
-            Access Database
           </a>
         </div>
       </div>

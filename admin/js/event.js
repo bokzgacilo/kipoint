@@ -66,7 +66,6 @@ function acceptEvent(id){
         'Requested event was moved to accepted and can be shown to the Calendar.',
         'success'
       )
-
       closeModal();
     },
     complete: () => {
@@ -77,10 +76,11 @@ function acceptEvent(id){
   })
 }
 
-function generateDetails(id){
+
+function openDoneEvent(id){
   $.ajax({
     type: 'get',
-    url: 'api/getEventDetails.php',
+    url: 'api/getDoneEventDetails.php',
     data: {
       requestID: id
     },
@@ -92,6 +92,74 @@ function generateDetails(id){
     },
     complete: () => {
       openModal('eventDetails')
+    }
+  })
+}
+
+function postReschedule(formID){
+  var form = '#' + formID + 'form';
+  $(form).submit(function(event){
+    event.preventDefault();
+
+    var setRescheduleDate = $('#reschedRange').val();
+
+    $.ajax({
+      type: 'post',
+      url: 'api/rescheduleEvent.php',
+      data: {
+        requestID: formID,
+        days: setRescheduleDate
+      },
+      beforeSend: () => {
+        $('.backdrop').css({'display':'flex'})
+      },
+      success: (response) => {
+        if(response == 1){
+          Swal.fire(
+            'Event Rescheduled!',
+            'Event ' + formID + ' has new starting and ending dates.',
+            'success'
+          )
+    
+          closeModal();
+          $('.backdrop').css({'display':'none'})
+        }
+
+        getAllEvents();
+        renderCalendar();
+        getServingEvent();
+      }
+    })
+  })
+}
+
+function reviewFirstEvent(id){
+  $.ajax({
+    type: 'get',
+    url: 'api/getFirstEvent.php',
+    data: {
+      requestID: id
+    },
+    beforeSend: () => {
+
+    },
+    success: (response) => {
+      $('#request-body').html(response)
+    },
+    complete: () => {
+      $('#requestDetails').css({
+        'display' : 'flex'
+      })
+    }
+  })
+}
+
+function getServingEvent(){
+  $.ajax({
+    type: 'get',
+    url: 'api/getCurrentServingEvent.php',
+    success: (response) => {
+      $('#now-serving-event').html(response)
     }
   })
 }
@@ -116,6 +184,7 @@ function reviewEvent(id){
     }
   })
 }
+
 function viewCancelled(id){
   $.ajax({
     type: 'get',
@@ -137,8 +206,8 @@ function viewCancelled(id){
   })
 }
 
-function closeModal(){
-  $('.bok-modal').css({'display' : 'none'})
+function genereteReceipt(id){
+  alert()
 }
 
 function cancelEvent(id){
@@ -162,13 +231,13 @@ function cancelEvent(id){
       $('.backdrop').css({'display' : 'none'})
       getAllEvents();
       renderCalendar();
+      getServingEvent();
     }
   })
 }
 
 function getCalendarItem(item){
   var schedules = JSON.parse(item);
-  console.log(schedules)
   var events = [];
   for(var key in schedules) {
     if (schedules.hasOwnProperty(key)) {
@@ -180,8 +249,6 @@ function getCalendarItem(item){
       });
     }
   }
-
-  console.log(events)
 
   calendar = new Calendar(document.getElementById('calendar'), {
   headerToolbar: {
@@ -220,11 +287,42 @@ function getAllEvents(){
   getAllCancelledEvents();
 }
 
+function rescheduleEvent(id){
+  $('.event-title').text('Reschedule Event: ' + id);
+  $('#rescheduleEvent').css({'display':'flex', 'z-index': '102'})
+
+  $.ajax({
+    type: 'get',
+    url: 'api/getRescheduleDetails.php',
+    data: {requestID:id},
+    beforeSend: () => {
+      $('.backdrop').css({'display':'flex'})
+    },
+    success: (response) => {
+      $('.rescheduleForm').html(response)
+
+      $('.backdrop').css({'display':'none'})
+    }
+  })
+}
+
+function processDone(){
+  $.ajax({
+    type: 'get',
+    url: 'api/processDone.php',
+    success: (response) => {
+      console.log(response)
+    }
+  })
+}
+
 $(document).ready(function(){
   $('.close-modal').click(function(){
     $(this).parent().parent().parent().css('display', 'none');
   })
 
+  getServingEvent();
+  processDone();
   getAllEvents();
   getIncomingEvent();
   renderCalendar();

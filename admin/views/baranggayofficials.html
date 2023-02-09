@@ -1,0 +1,54 @@
+<link rel="stylesheet" href="css/baranggayofficials-web.css">
+<script src="js/baranggayofficials.js"></script>
+
+<div id='addSingleOfficial' name='addSingleOfficial' class="bok-modal">
+  <div class="bok">
+    <div class="bok-modal-header">
+      <h4 class="is-size-4 mt-4 mb-4">Add Single Official</h4>
+      <i class="fa-solid fa-x" onclick="closeModal()"></i>
+    </div>
+    <form id="addSingleOfficialForm">
+      <figure class="mb-4 image is-128x128" style="align-self: center;">
+        <img id="imagePreview" class='is-rounded' src="https://bulma.io/images/placeholders/256x256.png">
+      </figure>
+      <h4 class="is-size-6">Display Picture</h4>
+      <input id="newProfilePic" type="file" class="input" accept="image/*">
+      <h4 class="is-size-6">Fullname</h4>
+      <input required id='offFullname' type="text" class="input" placeholder="Lastname, Firstname M.I">
+      <h4 class="is-size-6">Position</h4>
+      <div class="select w-100">
+        <select  id='offPosition' required class="w-100">
+          <option>Barangay Tanod</option>
+          <option>Konsehal</option>
+        </select>
+      </div>
+      <h4 class="is-size-6">Contact Number</h4>
+      <input required id='offContact' type="tel" class="input mb-2" placeholder='09762220952'>
+      <button id='addOfficialSubmit' class="mb-4 mt-2 button is-link w-100" type="submit">Add Official</button>
+    </form>
+  </div>
+</div>
+
+<main>
+  <div>
+    <h4 class="is-size-4 mb-3">Barangay Officials</h4>
+    <h6 class="mb-3">All of the person listed below is a Barangay Officials of Barangay Pinagsama.</h6>
+    <div>
+      <button class="addSingleOfficial button is-success is-outlined">Add New Official</button>
+      <input id='officialSearchInput' type='search' placeholder="Start searching barangay official.." class="w-25 input">
+      <button id='officialSearchButton' class="button is-link">Search</button>
+    </div>
+  </div>
+  <div id='officials-list'>
+    <div class="official-list-header w-100">
+      <p class="col-2">Action</p>
+      <p class="col-1">Picture</p>
+      <p class="col-3">Fullname (Lastname, Firstname M.I)</p>
+      <p class="col-2">Position</p>
+      <p class="col">Contact Number</p>
+    </div>
+    <div class="official-list">
+      <!-- QUERY -->
+    </div>
+  </div>
+</main>

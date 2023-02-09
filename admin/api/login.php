@@ -11,7 +11,7 @@
   if(($result -> num_rows) > 0){
     $fullname = '';
     while($row = $result -> fetch_array()){
-      $fullname = $row['name'];
+      $fullname = $row['fullname'];
     }
 
     $resp = array(

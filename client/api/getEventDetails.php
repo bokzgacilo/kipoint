@@ -3,9 +3,9 @@
 
   $id = $_GET['id'];
 
-  $sql = "SELECT * FROM done WHERE id='$id'";
+  $sql = "SELECT * FROM done WHERE requestID='$id'";
   $result = $conn -> query($sql);
-
+  
   if(($result -> num_rows) == 0){
     echo "
     <h4>No events to show.</h4>
@@ -50,9 +50,9 @@
           }
           echo "
           </div>
-          <form id='commentForm' name=".$row['id'].">
+          <form id='commentForm' name=".$row['requestID'].">
             <input id='commentInput' required class='input is-normal' type='text' placeholder='Post something..'>
-            <button class='button is-primary' name=".$row['id']." onclick='postComment(this.name)' type='submit'>Post</button>
+            <button class='button is-primary' name=".$row['requestID']." onclick='postComment(this.name)' type='submit'>Post</button>
             <label class='cl-switch'>
               <input type='checkbox' id='anonymousSwitch'>
               <span class='switcher'></span>

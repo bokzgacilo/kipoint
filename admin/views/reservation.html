@@ -41,14 +41,23 @@
 })
 </script>
 
-<div class="bok-modal" id="eventDetails">
-  <div id='event-detail-body' class="bok w-50">
-    <!-- Query -->
+<div class="bok-modal" id="rescheduleEvent">
+  <div class="bok w-50">
+    <div class="bok-modal-header">
+      <h4 class="event-title is-size-4">
+        Reschedule Event
+      </h4>
+      <i onclick='closeModal()' class="fa-solid fa-x"></i>
+    </div>
+    <div class="rescheduleForm">
+     
+    </div>
   </div>
 </div>
 
 <div class="bok-modal" id="requestDetails">
   <div id='request-body' class="bok w-50">
+    
     <!-- Query -->
   </div>
 </div>
@@ -70,7 +79,7 @@
             <li>
               <a>
                 <i class="fa-solid fa-badge-check me-2"></i>
-                Accepted
+                Now Serving Event
               </a>
             </li>
             <li>
@@ -94,7 +103,10 @@
           </ul>
         </div>
         <div class="events-list">
-          <section id='accepted-events' class="tab-content">Accepted</section>
+          <!-- <section id='accepted-events' class="tab-content">Accepted</section> -->
+          <section id='now-serving-event' class="tab-content">
+            Getting serving event...
+          </section>
           <section id='done-events' class="tab-content">Done</section>
           <section id='requested-events' class="tab-content">Requested</section>
           <section id='cancelled-events' class="tab-content">Cancelled</section>

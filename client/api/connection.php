@@ -1,4 +1,6 @@
 <?php
+  // include('emailer.php');
+
   date_default_timezone_set('Asia/Manila');
   
   $server = "localhost";

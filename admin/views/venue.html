@@ -1,0 +1,44 @@
+<link rel="stylesheet" href="css/venue-web.css">
+<script src="js/venue.js"></script>
+
+<div id='addNewVenue' name='addNewVenue' class="bok-modal">
+  <div class="bok">
+    <div class="bok-modal-header">
+      <h4 class="is-size-4">
+        Add New Venue
+      </h4>
+      <i onclick='closeModal()' class="fa-solid fa-x"></i>
+    </div>
+    <form id="addNewVenueForm">
+      <h4 class="is-size-5">Venue Name</h4>
+      <input id="newVenueName" type="text" class="input mb-4 mt-4" placeholder="Venue Name">
+      <h4 class="is-size-5">Venue Address</h4>
+      <input id="newVenueAddress" type="text" class="input mb-4 mt-4" placeholder="Venue Address">
+      <button class="mb-4 mt-2 button is-primary w-100" type="submit">Add</button>
+    </form>
+  </div>
+</div>
+
+<main>
+  <h4 class="is-size-4 mb-3">List of Venue</h4>
+  <div>
+    <h6 class="mb-3">Below is the all listed venue clients can reserve.</h6>
+    <div>
+      <button onclick="openAddNewVenueModal()" class="button is-success is-outlined">Add New Venue</button>
+      <input id='venueSearchInput' type='search' placeholder="Start searching resident.." class="w-25 input">
+      <button id='venueSearchButton' class="button is-link">Search</button>
+    </div>
+  </div>
+  <div class="venue-list">
+    <div class="venue-list mt-4">
+      <div class="venue-header">
+        <p class="col-1">Action</p>
+        <p class="col">Name</p>
+        <p class="col">Exact Address</p>
+      </div>
+    </div>
+    <div class="venue-container">
+      
+    </div>
+  </div>
+</main>

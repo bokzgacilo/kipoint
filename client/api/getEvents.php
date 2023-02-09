@@ -12,9 +12,9 @@
     $counter = 1;   
     while($row = $result -> fetch_array()){
       $counter2 = $counter++;
-
       echo "
-        <li id='".$row['id']."' onclick='changeEvent(this.id)'><a>".$counter2 .'. ' .$row['client_name']."'s Event</a></li>
+        <li class='event-web' id='".$row['requestID']."' onclick='changeEvent(this.id)'><a>".$counter2 .'. ' .$row['client_name']."'s Event</a></li>
+        <li class='event-mobile' id='".$row['requestID']."' onclick='openEventModal(this.id)'><a>".$counter2 .'. ' .$row['client_name']."'s Event</a></li>
       ";
     }
   }

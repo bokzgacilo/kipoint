@@ -43,9 +43,7 @@
   .comment-body > p {
     font-size: 13px;
   }
-
   
-    
   .comment-body-header {
     display: flex;
     flex-direction: row;
@@ -63,12 +61,100 @@
     color: rgb(170, 170, 170);
   }
 
+  .rese {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .rese-body {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+  }
+
+  .rese-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .rese-body > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .event-mobile, .event-article-mobile {
+    display: none;
+  }
+
+  #event-article {
+    display: flex;
+  }
+
+  .equipment-header {
+    display: flex;
+    padding: 10px;
+    flex-direction: row;
+    background-color: rgb(2, 144, 52);
+    color: #fff;
+    font-size: 14px;
+    font-family: Inter-SemiBold;
+    justify-content: space-between;
+  }
+
+  .official-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .official {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .official-image > img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    object-fit: cover;
+  }
+
+  #changePictureForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .equipment-body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .equipment {
+    display: flex;
+    flex-direction: row;
+    font-size: 13px;
+    padding: 0 10px;
+    /* padding: 10px; */
+    margin-bottom: 0.2rem;
+  }
+
   .formComment {
     display: flex;
     flex-direction: row;
     gap: 1rem;
     align-items: center;
   }
+
+  .sidebar-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
   aside {
     border-right: 1px #ededed  solid;
     padding: 1rem;
@@ -182,6 +268,10 @@
     padding: 1rem;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
     gap: 1rem;
+  }
+
+  .dashboard-mobile {
+    display: none;
   }
 
   .dashboard {

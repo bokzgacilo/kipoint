@@ -1,12 +1,42 @@
+// GLOBAL VARIABLES
 var route;
 var hashed_url = window.location.hash;
 var lastURL = hashed_url.split("#");
 
+// FUNCTIONS
+function generateDetails(id){
+  $.ajax({
+    type: 'get',
+    url: 'api/getEventDetails.php',
+    data: {
+      requestID: id
+    },
+    beforeSend: () => {
+
+    },
+    success: (response) => {
+      $('#event-detail-body').html(response)
+    },
+    complete: () => {
+      openModal('eventDetails')
+    }
+  })
+}
+
+function closeModal(){
+  $('.bok-modal').css({'display' : 'none'})
+}
+
+
+
+// ON READY
 $(document).ready(function(){
   if(sessionStorage.getItem("name") == null || sessionStorage.getItem("name") == ""){
     window.location.replace("login.html#error=No Signed In Account");
   }
 
+
+  
   if(lastURL[1] == undefined){
     changeRoute('reservation');
   }else {
@@ -144,6 +174,30 @@ $(document).ready(function(){
         }
       })
     }
+  })
+
+  $('#generateReportForm').submit(function(event){
+    event.preventDefault();
+
+    var parameter = $('#exportFile').val();
+
+    $.ajax({
+      type: 'get',
+      url: 'api/generateReport.php',
+      data: {
+        param: parameter
+      },
+      beforeSend: () => {
+        $('.backdrop').css({'display':'flex'})
+      },
+      success: (response) => {
+        $('#generatedFile').html(response);
+
+        $('.backdrop').css({'display':'none'})
+      }
+    })
+
+
   })
 
   $('.navigate').click(function(){

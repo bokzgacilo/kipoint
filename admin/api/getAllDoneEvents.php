@@ -18,7 +18,7 @@
           </div>
           <div>
             <p>Status: ".$row['status']."</p>
-            <button onclick='generateDetails(".$row['requestID'].")' class='button is-link is-small'>Show Full Details</button>
+            <button onclick='openDoneEvent(".$row['requestID'].")' class='button is-link is-small'>Show Full Details</button>
           </div>
         </div>
       ";

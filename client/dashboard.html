@@ -50,56 +50,85 @@
       </div>
     </div>
   </div>
-  <style>
-    .rese {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
 
-    .rese-body {
-      display: flex;
-      flex-direction: row;
-      gap: 1rem;
-    }
+  <!-- Change Picture -->
+  <div id='changePicture' name='changePicture' class="bok-modal">
+    <div class="bok">
+      <div class="bok-modal-header">
+        <h4 class="is-size-4 mt-2 mb-2">
+          Change Profile Picture
+        </h4>
+        <i class="close-modal fa-solid fa-x"></i>
+      </div>
+      <form id="changePictureForm" method='post' action="" enctype="multipart/form-data">
+        <figure class="mb-4 image is-128x128">
+          <img id="imagePreview" class='is-rounded' src="https://bulma.io/images/placeholders/256x256.png">
+        </figure>
+        <input required type="file" accept="image/*" id="newProfilePic" class="mt-4 mb-4 input">
+        <button type='submit' class="mt-4 mb-4 button is-primary w-100" type="submit">Update Profile Picture</button>
+      </form>
+    </div>
+  </div>
 
-    .rese-footer {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-    }
+  <!-- Barangay Officials Modal -->
+  <div id='officialsModal' name='officialsModal' class="bok-modal">
+    <div class="bok w-50">
+      <div class="bok-modal-header">
+        <h4 class="is-size-4 mt-2 mb-2">
+          Barangay Officials
+        </h4>
+        <i class="close-modal fa-solid fa-x"></i>
+      </div>
+      <div class="official-list">
 
-    .rese-body > div {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
+      </div>
+    </div>
+  </div>
 
-    .equipment-header {
-      display: flex;
-      padding: 10px;
-      flex-direction: row;
-      background-color: rgb(2, 144, 52);
-      color: #fff;
-      font-size: 14px;
-      font-family: Inter-SemiBold;
-      justify-content: space-between;
-    }
+  <!-- Change Password -->
+  <div id='changePassword' name='changePassword' class="bok-modal">
+    <div class="bok">
+      <div class="bok-modal-header">
+        <h4 class="is-size-4 mt-2 mb-2">
+          Change Password
+        </h4>
+        <i class="close-modal fa-solid fa-x"></i>
+      </div>
+      <form id="changePasswordForm">
+        <h4 class="is-size-6 mb-3">Current Password</h4>
+        <input required type="text" name="oldpassword" id="oldPassword" class="input"> 
+        <h4 class="is-size-6 mt-4 mb-3">New Password</h4>
+        <input required type="text" name="newPassword" id="newPassword" class="input"> 
+        <button type="submit" class="mt-4 mb-4 button is-primary w-100">Change</button>
+      </form>
+    </div>
+  </div>
 
-    .equipment-body {
-      display: flex;
-      flex-direction: column;
-    }
+  <!-- Event Modal -->
+  <div id='eventModal' name='eventModal' class="bok-modal">
+    <div class="bok">
+      <div class="bok-modal-header">
+        <h4 class="eventID is-size-4"></h4>
+        <i class="close-modal fa-solid fa-x"></i>
+      </div>
+      <div class="event-article-mobile">
+        
+      </div>
+    </div>
+  </div>
 
-    .equipment {
-      display: flex;
-      flex-direction: row;
-      font-size: 13px;
-      padding: 0 10px;
-      /* padding: 10px; */
-      margin-bottom: 0.2rem;
-    }
-  </style>
+  <div id='descriptionModal' name='descriptionModal' class="bok-modal">
+    <div class="bok">
+      <div class="bok-modal-header">
+        <h4 class="eventID is-size-4"></h4>
+        <i class="close-modal fa-solid fa-x"></i>
+      </div>
+      <div class="event-description-mobile">
+
+      </div>
+    </div>
+  </div>
+
   <!-- Reservation Modal -->
   <div id='makeReservation' class='bok-modal'>
     <div class="bok w-75">
@@ -116,14 +145,18 @@
             <textarea id='event_description' required class="textarea" placeholder="e.g. Hello world"></textarea>
             <h4>Starting Date</h4>
             <input required type="datetime-local" id="starting_date" class="input">
-            <h4>Ending Date</h4>
-            <input required type="datetime-local" id="ending_date" class="input">
+            <h4>Event Days</h4>
+            <div class="select w-100">
+              <select id="ending_date" required class="w-100">
+                <option value="1">1 Day</option>
+                <option value="2">2 Days</option>
+                <option value="3">3 Days</option>
+              </select>
+            </div>
             <h4>Venue</h4>
             <div class="select w-100">
               <select id="venue_dropdown" required class="w-100">
-                <option>Basketball Court</option>
-                <option>Barangay Hall</option>
-                <option>Simbahan</option>
+
               </select>
             </div>
           </div>
@@ -151,10 +184,13 @@
   <div class="sidebar" id="account-sidebar">
     <div class="sidebar-content">
       <div class="sidebar-header">
-        <p id='account-name' class="is-size-5">Ariel Jericko Gacilo</p>
+        <h4 name='displayUsername' class="is-size-4">Ariel Jericko Gacilo</h4>
         <i class="close-sidebar fa-solid fa-xmark"></i>
       </div>
       <div class="sidebar-body">
+        <a class="button w-100 changePicture">Change Picture</a>
+        <a class="button w-100 barangaOfficials">Barangay Officials</a>
+        <a class="button w-100 changePassButton">Change Password</a>
         <a href="api/logout.php" class="button is-link w-100">Logout</a>
       </div>
     </div>
@@ -170,12 +206,31 @@
 
     </div>
     <div class="account col-4">
-      <p class="is-size-6">Ariel Jericko Gacilo</p>
-      <img src="../asset/default.png" />
+      <p name="displayUsername" class="is-size-6">Ariel Jericko Gacilo</p>
+      <img id='sidebarAvatar' src="../asset/default.png" />
     </div>
   </header>
 
-  <!-- Main -->
+  <!-- Mobile -->
+  <div class="dashboard-mobile">
+    <aside class="menu">
+      <h4 class="is-size-4 mb-3">
+        My Reservation
+      </h4>
+      <div class="my-reservation mb-4">
+        
+      </div>
+      <h4 class="is-size-4 mt-4">
+        Events
+      </h4>
+      <ul class="menu-list">
+        <li><a>Dashboard</a></li>
+        <li><a>Customers</a></li>
+      </ul>
+    </aside>
+  </div>
+
+  <!-- Web -->
   <div class="dashboard">
     <aside class="menu col-3">
       <h4 class="is-size-5 menu-label">
@@ -196,7 +251,6 @@
     <article id='event-article' class="col">
       
     </article>
-    
   </div>
 </body>
 </html>

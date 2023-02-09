@@ -1,0 +1,16 @@
+@media only screen and (min-width: 500px){
+  .user-login-form-container {
+    display: flex;
+    flex-direction: column;
+    width: 25vw;
+    margin-top: 4rem;
+    align-self: center;
+  }
+
+  img {
+    align-self: center;
+    width: 40%;
+    height: auto;
+    object-fit: cover;
+  }
+}

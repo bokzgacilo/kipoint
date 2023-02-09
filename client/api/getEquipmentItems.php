@@ -8,7 +8,8 @@
     echo "<h4>No Available Item</h4>";
   }else {
     while($row = $result -> fetch_array()){
-      echo "
+      if($row['available'] != 0){
+        echo "
         <div class='equipment'>
           <p class='col-3'>".$row['serial_code']."</p>
           <p class='col'>".$row['name']."</p>
@@ -18,6 +19,7 @@
           </div>
         </div>
       ";
+      }      
     }
   }
 

@@ -1,7 +1,7 @@
 <?php
   include('../connection.php');
 
-  $result = $conn -> query("SELECT * FROM accepted");
+  $result = $conn -> query("SELECT * FROM requests");
   $events = [];
 
   while($row = $result -> fetch_array()){

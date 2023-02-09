@@ -6,7 +6,6 @@
   $sql = "SELECT * FROM useraccounts WHERE username='$username'";
   $result = $conn -> query($sql);
   
-
   while($row = $result -> fetch_array()){
     if($row['requestID'] == 0){
       echo "
@@ -21,6 +20,5 @@
     }
   }
   
-
   $conn -> close();
 ?>

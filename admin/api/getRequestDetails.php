@@ -66,7 +66,7 @@
     </div>
     </div>
     <div class='bok-modal-footer'>
-      <button id='".$row['requestID']."' onclick='acceptEvent(this.id)' class='me-2 button is-primary'>Accept Event</button>
+      <button id='".$row['requestID']."' onclick='rescheduleEvent(this.id)' class='me-2 button is-primary'>Reschedule Event</button>
       <button id='".$row['requestID']."' onclick='cancelEvent(this.id)' class='me-2 button is-danger'>Cancel Event</button>
       <button onclick='closeModal()' class='button'>Close</button>
     </div>

@@ -5,7 +5,9 @@
   $username = $_POST['username'];
   $comment = $_POST['message'];
 
-  $sql = "SELECT * FROM done WHERE id='$eventID'";
+  echo $eventID . ', ' . $comment;
+  $sql = "SELECT * FROM done WHERE requestID='$eventID'";
+
   $result = $conn -> query($sql);
   $array_of_comment = '';
 
@@ -26,7 +28,7 @@
 
   $process_array = json_encode($array_of_comment);
   
-  $updateComment = $conn -> query("UPDATE done SET comments='$process_array' WHERE id='$eventID'");
+  $updateComment = $conn -> query("UPDATE done SET comments='$process_array' WHERE requestID='$eventID'");
   
   if($updateComment){
     echo 1;

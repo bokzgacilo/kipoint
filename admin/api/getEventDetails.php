@@ -3,7 +3,7 @@
 
   $eventID = $_GET['requestID'];
   
-  $sql = "SELECT * FROM accepted WHERE requestID='$eventID'";
+  $sql = "SELECT * FROM requests WHERE requestID='$eventID'";
   $result = $conn -> query($sql);
 
   echo "
@@ -40,10 +40,7 @@
       <p class='col-3'>Ending Date:</p>
       <p class='col-9'>".date('d F, Y (l), h:i A', $end)."</p>
     </div>
-    <div class='row'>
-      <p class='col-3'>Accepted By:</p>
-      <p class='col-9'>".$row['accepted_by']."</p>
-    </div>
+
     <div class='row'>
       <p class='col-3'>Status:</p>
       <p class='col-9'>".$row['status']."</p>
@@ -70,7 +67,6 @@
     </div>
     </div>
     <div class='bok-modal-footer'>
-      <button id='".$row['requestID']."' onclick='cancelEvent(this.id)' class='me-2 button is-danger'>Cancel Event</button>
       <button onclick='closeModal()' class='button'>Close</button>
     </div>
     ";

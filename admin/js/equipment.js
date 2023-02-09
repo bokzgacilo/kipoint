@@ -13,7 +13,42 @@ function getInventory(){
 }
 
 function removeItem(id){
-  alert(id)
+  Swal.fire({
+    title: 'Remove this item',
+    text: 'Theres no turning back after this action',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, remove it.'
+  }).then((result) => {
+    if(result.isConfirmed){
+      $.ajax({
+        type: 'post',
+        url: 'api/deleteInventory.php',
+        data: {
+          serial_code: id
+        },
+        beforeSend: () => {
+          $('.backdrop').css({'display':'flex'})
+        },
+        success: (response) => {
+          if(response == 1){
+            Swal.fire(
+              'Inventory Item Removed Successfully',
+              id + ' was succesfully remove to inventory',
+              'success'
+            )
+    
+            getInventory();
+            $('.backdrop').css({'display':'none'})
+          }
+        }
+      })
+    }
+  }) 
+  // alert(id)
+  
 }
 
 $(document).ready(function(){
@@ -66,24 +101,38 @@ $(document).ready(function(){
     })
   })
 
+  $('#add-inventory-button').click(function(){
+    $('#addInventory').css('display', 'flex');
+  })
+  
+  $('#sortItem').click(function(){
+    var paramater = $('#sortCategory').val();
+    $.ajax({
+      type: 'get',
+      url: 'api/sortEquipment.php',
+      data: {param: paramater},
+      beforeSend: () => {
+        $('.backdrop').css({'display' : 'flex'})
+      },
+      success: (response) => {
+        $('.equipment-container').html(response);
+        $('.backdrop').css({'display' : 'none'})
+      }
+    })
+  })
+  
+  $('.edit').click(function(){
+    var target = $(this).parent().parent().attr('id');
+    console.log(target)
+  })
+  
+  $('.delete').click(function(){
+    var target = $(this).parent().parent();
+    $('.backdrop').css('display', 'flex');
+    setTimeout(function(){
+      $('.backdrop').css('display', 'none');
+      target.fadeOut('slow');
+    }, 400)
+  })
 })
 
-$('#add-inventory-button').click(function(){
-  $('#addInventory').css('display', 'flex');
-})
-
-$('.edit').click(function(){
-  var target = $(this).parent().parent().attr('id');
-  console.log(target)
-})
-
-$('.delete').click(function(){
-  var target = $(this).parent().parent();
-  $('.backdrop').css('display', 'flex');
-
-  setTimeout(function(){
-    $('.backdrop').css('display', 'none');
-    target.fadeOut('slow');
-
-  }, 400)
-})

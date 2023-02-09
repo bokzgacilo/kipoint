@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="css/accounts-web.css">
+<script src="js/accounts.js"></script>
+
+<div id='changePasskey' name='changePasskey' class="bok-modal">
+  <div class="bok">
+    <div class="bok-modal-header">
+      <h4 class="is-size-4 mt-4 mb-4">Change Password</h4>
+
+    </div>
+    <form id="userChangePasswordForm">
+      <input id="changePassword_Input" type="password" name="password" class="input mb-4 mt-4" placeholder="Password">
+      <button id='changePassword_Button' class="mb-4 mt-2 button is-link w-100" type="submit">Update</button>
+    </form>
+  </div>
+</div>
+
+<div id='uploadExcelAccount' name='uploadExcelAccount' class="bok-modal">
+  <div class="bok">
+    <form id="importExcelFile">
+      <h4 class="is-size-4 mt-4 mb-4">Upload Excel File</h4>
+      <input required accept=".xlsx, .xls" type="file" name="excelFile" class="input mb-4 mt-4">
+      <button class="mb-4 mt-2 button is-link w-100" type="submit">Update</button>
+    </form>
+  </div>
+</div>
+
+<main>
+  <div>
+    <h4 class="is-size-4 mb-3">User Accounts</h4>
+    <h6 class="mb-3">All of the person listed below is a Barangay Pinagsama citizen that registers to the Kipoint Platform.</h6>
+    <div>
+      <button class="add-new-data button is-success is-outlined">Update Account List</button>
+      <a href='views/account-template.xlsx' download class="button">Download Template</a>
+      <input id='accountSearchInput' type='search' placeholder="Start searching resident.." class="w-25 input">
+      <button id='accountSearchButton' class="button is-link">Search</button>
+    </div>
+  </div>
+  <div id='accounts-list'>
+    <div class="account-list-header w-100">
+      <p class="col-2">Action</p>
+      <p class="col-1">Picture</p>
+      <p class="col-3">Fullname (Lastname, Firstname)</p>
+      <p class="col-2">Username</p>
+      <p class="col-2">Password</p>
+      <p class="col-2">Status</p>
+    </div>
+    <div class="account-list">
+      <!-- QUERY -->
+    </div>
+  </div>
+</main>

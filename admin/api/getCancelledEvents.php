@@ -71,5 +71,9 @@
     ";
   }
 
+  $currentDate = date('F j, Y h:i a');
+  $message = 'Event: ' . $eventID . ' was cancelled';
+  $conn -> query("INSERT INTO logs(event, date) VALUES('$message','$currentDate')");
+
   $conn -> close();
 ?>

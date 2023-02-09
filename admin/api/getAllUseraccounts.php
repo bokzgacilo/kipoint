@@ -1,34 +1,43 @@
 <?php
   include('../connection.php');
-
-  $selectAllResidents = $conn -> query("SELECT * FROM useraccounts");
+  $selectAllResidents = $conn -> query("SELECT * FROM useraccounts ORDER BY fullname ASC");
+  
   while($row = $selectAllResidents -> fetch_array()){
-    echo "
-      <div class='resident mb-2'>
-        <div class='resident-action col-2'>
-          <a title='Delete Resident'>
-            <i class='fa-solid fa-trash'></i>
-          </a>
-          <a title='Edit Resident'>
-            <i class='fa-solid fa-user-pen'></i>
-          </a>
-          <a title='Change Password'>
-            <i class='fa-solid fa-key'></i>
-          </a>
-          <a title='Change Address'>
-            <i class='fa-solid fa-map-location-dot'></i>
-          </a>
+    if($row['username'] == ''){
+      echo "
+      <div class='account'>
+        <div class='account-action col-2'>
+          <i onclick='deleteUser(".$row['id'].")' class='fa-solid fa-trash'></i>
         </div>
-        <div class='col-1 res-avatar'>
+        <div class='col-1 account-image'>
           <img src='../client/".$row['photoURL']."'>
         </div>
         <p class='col-3'>".$row['fullname']."</p>
         <p class='col-2'>".$row['username']."</p>
         <p class='col-2'>".$row['password']."</p>
-        <p class='col-2'>".$row['address']."</p>
+        <p class='col-2'>".$row['status']."</p>
       </div>
-    ";
+      ";
+    }else {
+      echo "
+      <div class='account'>
+        <div class='account-action col-2'>
+          <i onclick='deleteUser(".$row['id'].")' class='fa-solid fa-trash'></i>
+          <i onclick='changePasskey(".$row['id'].")' class='fa-solid fa-key'></i>
+        </div>
+        <div class='col-1 account-image'>
+          <img src='../client/".$row['photoURL']."'>
+        </div>
+        <p class='col-3'>".$row['fullname']."</p>
+        <p class='col-2'>".$row['username']."</p>
+        <p class='col-2'>".$row['password']."</p>
+        <p class='col-2'>".$row['status']."</p>
+      </div>
+      ";
+    }
   }
+  
+
 
   $conn -> close();
 ?>
