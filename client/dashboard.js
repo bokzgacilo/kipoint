@@ -371,7 +371,7 @@ $(document).ready(function(){
 
   $("[name='displayUsername']").text(sessionStorage.getItem("username"))
 
-  if(window.location.href != 'https://kipoint.website/client/dashboard.html'){
+  if(window.location.href != 'http://localhost/kipoint/client/dashboard.html'){
     eventHashID = window.location.href.split('#')[1];
     eventID = eventHashID.split('=')[1];
     changeEvent(eventID);

@@ -68,6 +68,36 @@
     font-family: Inter-SemiBold ;
   }
 
+  #officialsModal > .bok {
+    width: 100vw !important;
+  }
+
+  .official-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .official {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+  }
+
+  .official-image > img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border: 50px;
+  }
+
+  .official > * {
+    width: 100% !important;
+    text-align: center;
+  }
+
   #changePictureForm {
     display: flex;
     flex-direction: column;
