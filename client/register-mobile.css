@@ -20,7 +20,7 @@
 
   .step {
     flex-direction: column;
-    width: 80%;
+    width: 100%;
     background-color: #fff;
     display: none;
   }
