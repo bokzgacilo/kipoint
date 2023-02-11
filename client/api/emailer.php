@@ -50,4 +50,37 @@ function sendEmailReceipt($requestID, $receiver){
   $conn -> close();
 }
 
+function sendRegistrationEmail($receiver){
+  include('connection.php');
+  $verificationNumber = rand(100000,999999);
+
+  $conn -> query("UPDATE useraccounts SET verification_number='$verificationNumber' WHERE email='$receiver'");
+
+  $subject = "Kipoint";
+
+  $message = "
+    This is your verification number: ".$verificationNumber."
+  ";
+
+  $mail = new PHPMailer(true);
+  
+  $mail -> isSMTP();
+  $mail -> Host = "smtp.gmail.com";
+  $mail -> SMTPAuth = true;
+  $mail -> Username = 'kipoint.pinagsama@gmail.com';
+  $mail -> Password = 'anhdbeysgzbgevsc';
+  $mail -> SMTPSecure = 'ssl';
+  $mail -> Port = 465;
+
+  $mail -> setFrom('kipoint.pinagsama@gmail.com', 'Kipoint');
+
+  $mail -> addAddress($receiver);
+
+  $mail -> isHTML(true);
+  $mail -> Subject = $subject;
+  $mail -> Body = $message;
+
+  $mail -> send();
+}
+
 ?>

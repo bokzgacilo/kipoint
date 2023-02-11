@@ -5,7 +5,7 @@
   $password = $_POST['password'];
   $username = $_POST['username'];
 
-  $update = $conn -> query("UPDATE useraccounts SET username='$username', password='$password', status='Registered' WHERE email='$email'");
+  $update = $conn -> query("UPDATE useraccounts SET username='$username', password='$password', temporary_password='$password', status='Registered' WHERE email='$email'");
 
   if($update){
     echo 1;

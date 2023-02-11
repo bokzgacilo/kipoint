@@ -6,6 +6,9 @@
 
   #myReservation > .bok {
     font-size: 13px !important;
+    width: 100% !important;
+    overflow: none;
+    padding: 1rem;
   }
 
   .requested-equipments {
@@ -185,7 +188,7 @@
   .comment-holder {
     display: flex;
     flex-direction: column;
-    padding-bottom: 1rem;
+    padding-bottom: 4rem;
   }
 
   .comment-body-header {
