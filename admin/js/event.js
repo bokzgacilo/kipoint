@@ -3,16 +3,6 @@ var d = date.getDate(), m = date.getMonth(), y = date.getFullYear();
 var calendar;
 var Calendar = FullCalendar.Calendar;
 
-function getAllAcceptedEvents(){
-  $.ajax({
-    type: 'get',
-    url: 'api/getAllAcceptedEvents.php',
-    success: function(response){
-      $('#accepted-events').html(response)
-    }
-  })
-}
-
 function getAllDoneEvents(){
   $.ajax({
     type: 'get',
@@ -281,7 +271,6 @@ function renderCalendar(){
 }
 
 function getAllEvents(){
-  getAllAcceptedEvents();
   getAllDoneEvents();
   getAllRequestedEvents();
   getAllCancelledEvents();
