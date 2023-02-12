@@ -10,7 +10,7 @@
           <i onclick='deleteUser(".$row['id'].")' class='fa-solid fa-trash'></i>
         </div>
         <div class='col-1 account-image'>
-          <img src='../client/".$row['photoURL']."'>
+          <img src='".$row['photoURL']."'>
         </div>
         <p class='col-3'>".$row['fullname']."</p>
         <p class='col-2'>".$row['username']."</p>
@@ -26,7 +26,7 @@
           <i onclick='changePasskey(".$row['id'].")' class='fa-solid fa-key'></i>
         </div>
         <div class='col-1 account-image'>
-          <img src='../client/".$row['photoURL']."'>
+          <img src='".$row['photoURL']."'>
         </div>
         <p class='col-3'>".$row['fullname']."</p>
         <p class='col-2'>".$row['username']."</p>

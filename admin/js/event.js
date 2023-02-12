@@ -209,6 +209,7 @@ function cancelEvent(id){
       $('.backdrop').css({'display' : 'flex'})
     },
     success: (response) => {
+      console.log(response)
       Swal.fire(
         'Event Cancelled!',
         'Event was moved to cancelled',
