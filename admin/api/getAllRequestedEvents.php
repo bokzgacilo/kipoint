@@ -1,7 +1,7 @@
 <?php
   include('../connection.php');
 
-  $sql = "SELECT * FROM requests ORDER BY starting_date DESC";
+  $sql = "SELECT * FROM requests ORDER BY starting_date ASC";
   $result = $conn -> query($sql);
 
   if(($result -> num_rows) > 0){

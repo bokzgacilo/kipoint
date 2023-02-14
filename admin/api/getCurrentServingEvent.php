@@ -2,7 +2,7 @@
   include('../connection.php');
   include('emailer.php');
   
-  $sql = "SELECT * FROM requests ORDER BY starting_date DESC LIMIT 1";
+  $sql = "SELECT * FROM requests ORDER BY starting_date ASC LIMIT 1";
   $result = $conn -> query($sql);
 
   echo "<h4 class='is-size-4 mb-4'>Now Serving</h4>";
